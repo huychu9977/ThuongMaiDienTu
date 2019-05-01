@@ -29,27 +29,64 @@
                             </div>
                             <div class="product-info col-sm-6 col-md-6 col-lg-6 col-xl-6">
                                 <div class="wrapper hidden-xs">
-                                    <div class="product-info__sku pull-left">Tác giả: <strong><?php echo $product['aName']; ?></strong></div>
-                                    <div class="product-info__availability pull-right">Nhà cung cấp: <strong class="color"><?php echo $product['pName']; ?></strong></div>
+                                    <div class="product-info__sku pull-left">Hãng: <strong><?php echo $product['b_name']; ?></strong></div>
+                                    <div class="product-info__availability pull-right">Trạng thái: <strong class="color"><?php echo $product['pst_name']; ?></strong></div>
                                 </div>
                                 <div class="product-info__title">
                                     <h2><?php echo $product['name']; ?></h2>
                                 </div>
                                 <div class="wrapper visible-xs">
-                                    <div class="product-info__sku pull-left">Tác giả: <strong><?php echo $product['aName']; ?></strong></div>
-                                    <div class="product-info__availability pull-right">Nhà cung cấp: <strong class="color"><?php echo $product['pName']; ?></strong></div>
+                                    <div class="product-info__sku pull-left">Hãng: <strong><?php echo $product['b_name']; ?></strong></div>
+                                    <div class="product-info__availability pull-right">Trạng thái: <strong class="color"><?php echo $product['pst_name']; ?></strong></div>
                                 </div>
                                 <div class="price-box product-info__price"><span class="price-box__new"><?php echo number_format($product['price'], 0) . "&nbsp;₫"; ?></span> </div>
                                 <div class="product-info__review">
                                     <div class="rating"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
                                     <a href="#">1 Nhận xét(s)</a> <a href="#">Thêm nhận xét</a>
                                 </div>
-                                <div class="divider divider--xs product-info__divider hidden-xs"></div>
                                 <div class="product-info__description hidden-xs">
-                                    <div class="product-info__description__brand"><img src="public/images/custom/brand.png" alt="" /> </div>
-                                    <div class="product-info__description__text"><?php echo $product['description']; ?>.</div>
+                                    <table class="table table-params table-hover">
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Tên máy</span></td>
+                                                <td><?php echo $product['name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Đơn giá</span></td>
+                                                <td><?php echo number_format($product['price'], 0) . "&nbsp;₫"; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Màu</span></td>
+                                                <td><?php echo $product['pc_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Thể loại</span></td>
+                                                <td><?php echo $product['t_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Hãng sản xuất</span></td>
+                                                <td><?php echo $product['b_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">RAM</span></td>
+                                                <td><?php echo $product['pr_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Hệ điều hành</span></td>
+                                                <td><?php echo $product['pos_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Dòng CPU</span></td>
+                                                <td><?php echo $product['pu_name']; ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-right"><span class="color">Kích thước màn hình</span></td>
+                                                <td><?php echo $product['pss_name']; ?></td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="divider divider--xs product-info__divider"></div>
 
                                 <div class="divider divider--sm"></div>
                                 <div class="wrapper">
@@ -78,121 +115,63 @@
                             <ul class="nav nav-tabs nav-tabs--ys1" role="tablist">
                                 <li class="active"><a href="#Tab1" role="tab" data-toggle="tab" class="text-uppercase">DESCRIPTION</a></li>
                                 <li><a href="#Tab2" role="tab" data-toggle="tab" class="text-uppercase">Reviews</a></li>
-                                <li><a href="#Tab3" role="tab" data-toggle="tab" class="text-uppercase">Tags</a></li>
-                                <li><a href="#Tab4" role="tab" data-toggle="tab" class="text-uppercase">CUSTOM TAB</a></li>
+
                             </ul>
                             <!-- Tab panes -->
                             <div class="tab-content tab-content--ys nav-stacked">
                                 <div role="tabpanel" class="tab-pane active" id="Tab1">
                                     <p><?php echo $product['description']; ?>. </p>
                                     <div class="divider divider--md"></div>
-                                    <table class="table table-params">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-right"><span class="color">Tên sách</span></td>
-                                                <td><?php echo $product['name']; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">Tác giả</span></td>
-                                                <td><?php echo $product['aName']; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">Thể loại</span></td>
-                                                <td><?php echo $product['tName']; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">Nhà cung cấp</span></td>
-                                                <td><?php echo $product['pName']; ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">Đơn giá</span></td>
-                                                <td><?php echo number_format($product['price'], 0) . "&nbsp;₫"; ?></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="Tab2">
                                     <h5><strong class="color">CUSTOMER REVIEWS 1 ITEM(S)</strong></h5>
-                                    <p> GREAT!</p>
-                                    <p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                                    <div class="divider divider--xs"></div>
-                                    <table class="table table-params">
-                                        <tbody>
-                                            <tr>
-                                                <td class="text-right"><span class="color">QUALITY</span></td>
-                                                <td>
-                                                    <div class="rating"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">PRICE</span></td>
-                                                <td>
-                                                    <div class="rating"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="text-right"><span class="color">VALUE</span></td>
-                                                <td>
-                                                    <div class="rating"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                    <p class="color-light">Review by User / (posted on 16/9/2016)</p>
-                                    <div class="divider divider--xs"></div>
-                                    <h5><strong class="color">WRITE YOUR OWN REVIEW</strong></h5>
-                                    <p><span class="color">YOU'RE REVIEWING:</span> Lorem ipsum dolor sit amet conse ctetur</p>
-                                    <p><span class="color">HOW DO YOU RATE THIS PRODUCT?</span></p>
-                                    <div class="divider divider--xs"></div>
-                                    <div class="table-responsive">
-                                        <table class="table table-params">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-right"></td>
-                                                    <td class="text-center">
-                                                        <div class="rating"><span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span></div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="rating"><span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span></div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="rating"><span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span></div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="rating"><span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span></div>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <div class="rating"><span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right"><span class="color">QUALITY</span></td>
-                                                    <td class="text-center"><span class="icon-enable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right"><span class="color">PRICE</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-enable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="text-right"><span class="color">VALUE</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-enable">&#x25cf;</span></td>
-                                                    <td class="text-center"><span class="icon-disable">&#x25cf;</span></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="review-list">
+                                        <?php foreach ($reviews as $r) {
+	?>
+                                        <div class="item">
+                                            <div class="product-col-1">
+                                                <p class="image">
+                                                    <span class="avatar-letter">US</span>
+                                                </p>
+                                                <p class="name" itemprop="author"><?=$r['name'];?></p>
+                                            </div>
+                                            <div class="product-col-2">
+                                                <div class="infomation">
+                                                    <div class="rating">
+                                                        <div>
+                                                            <meta itemprop="ratingValue" content="3">
+                                                        </div>
+                                                        <p class="rating-content">
+<?php
+for ($i = 0; $i < 5; $i++) {
+		if ($i < $r['star_rate']) {
+			echo '<span class="icon-star"></span> ';
+		} else {
+			echo '<span class="icon-star empty-star"></span> ';
+		}
+
+	}
+	?>
+                                                        </p>
+                                                    </div>
+                                                    <p class="review" itemprop="name"><?=$r['title'];?></p>
+                                                    <p class="buy-already"><?=$r['created_date'];?></p>
+                                                    <div class="description js-description">
+                                                        <p class="review_detail" itemprop="reviewBody">
+                                                            <span>
+                                                            <?=$r['content'];?>
+                                                            <br>
+                                                            </span>
+                                                        </p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php }?>
                                     </div>
                                     <div class="divider divider--xs"></div>
+                                    <?php if (isset($_SESSION['customer'])) {?>
                                     <form action="#" class="contact-form">
                                         <label>Nickname<span class="required">*</span></label>
                                         <input type="text" class="input--ys input--ys--full">
@@ -203,31 +182,7 @@
                                         <div class="divider divider--xs"></div>
                                         <button type="submit" class="btn btn--ys text-uppercase">Submit Review</button>
                                     </form>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="Tab3">
-                                    <h5><strong class="color">OTHER PEOPLE MARKED THIS PRODUCT WITH THESE TAGS:</strong></h5>
-                                    <p>Pattern (1)</p>
-                                    <div class="divider divider--xs"></div>
-                                    <h5><strong class="color">ADD YOUR TAGS:</strong></h5>
-                                    <form action="#" class="contact-form">
-                                        <input type="text" class="input--ys input--ys--full">
-                                        <p>Use spaces to separate tags. Use single quotes (') for phrases.</p>
-                                        <div class="divider divider--xs"></div>
-                                        <button type="submit" class="btn btn--ys">Add Tags</button>
-                                    </form>
-                                </div>
-                                <div role="tabpanel" class="tab-pane" id="Tab4">
-                                    <h5><strong class="color text-uppercase">Lorem ipsum dolor sit amet conse ctetur adipisicing elit</strong></h5>
-                                    <div class="divider divider--xs"></div>
-                                    <p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. orem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                    <ul class="marker-list-circle">
-                                        <li><span class="text-uppercase">Lorem ipsum dolor sit amet</span></li>
-                                        <li><span class="text-uppercase">Conse ctetur adipisicing</span></li>
-                                        <li><span class="text-uppercase">Elit sed do eiusmod tempor</span></li>
-                                        <li><span class="text-uppercase">Incididunt ut laborev</span></li>
-                                        <li><span class="text-uppercase">Et dolore magna aliqua</span></li>
-                                        <li><span class="text-uppercase">Ut enim ad min</span></li>
-                                    </ul>
+                                <?php }?>
                                 </div>
                             </div>
                         </div>
@@ -327,6 +282,9 @@
         <!-- Custom -->
         <script src="public/js/custom.js"></script>
         <script src="public/js/js-product.js"></script>
+        <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
+        <!-- Bootstrap 3-->
+        <script src="public/external/bootstrap/bootstrap.min.js"></script>
         <script>
             $(document).ready(function () {
                 $(document).on('click', '#add-to-cart-detail', function() {

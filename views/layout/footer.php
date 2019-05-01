@@ -12,20 +12,26 @@
                 </div>
                 <div class="box-about">
                     <div class="mobile-collapse">
-                        <h4 class="mobile-collapse__title visible-xs">ABOUT US</h4>
+                        <h4 class="mobile-collapse__title visible-xs">VỀ CHÚNG TÔI</h4>
                         <div class="mobile-collapse__content">
-                            <p> No more need to look for other ecommerce themes. We provide huge number of different layouts. Yourstore comes packed with free and useful features developed to make your website creation easier. Innovative clean design, advanced functionality, UI made for humans, extensive documenta- tion and support i continue this list infinitely... </p>
+                            <p>© 2016 CÔNG TY CỔ PHẦN ĐẦU TƯ THƯƠNG MẠI<br>
+                            VPGD: 1267 Giải Phóng - Hoàng Mai - Hà Nội<br>
+                            Kho hàng 1: Kho Mỹ Đình - Nam Từ Liêm - Hà Nội<br>
+                            Kho hàng 2: Cảng Hà Nội - Vĩnh Tuy - HBT - Hà Nội<br>
+                            Điện thoại liên hệ:  024 3905 3888 - 09456 33233 - 09164 99299<br>
+                            E-mail: laptop_yourstore@gmail.com</p>
+
                         </div>
                     </div>
                 </div>
                 <!-- subscribe-box -->
                 <div class="subscribe-box offset-top-20">
                     <div class="mobile-collapse">
-                        <h4 class="mobile-collapse__title">NEWSLETTER SIGNUP</h4>
+                        <h4 class="mobile-collapse__title">BẢN ĐĂNG KÝ</h4>
                         <div class="mobile-collapse__content">
                             <form class="form-inline">
                                 <input class="subscribe-form__input" type="text" name="subscribe">
-                                <button type="submit" class="btn btn--ys btn--xl">SUBSCRIBE</button>
+                                <button type="submit" class="btn btn--ys btn--xl">THEO DÕI</button>
                             </form>
                         </div>
                     </div>
@@ -36,45 +42,45 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="mobile-collapse">
-                            <h4 class="text-left  title-under  mobile-collapse__title">INFORMATION</h4>
+                            <h4 class="text-left  title-under  mobile-collapse__title">THÔNG TIN</h4>
                             <div class="v-links-list mobile-collapse__content">
                                 <ul>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="support-24.html">Customer Service</a></li>
-                                    <li><a href="faq.html">Privacy Policy</a></li>
-                                    <li><a href="site-map.html">Site Map</a></li>
-                                    <li><a href="typography.html">Search Terms</a></li>
-                                    <li><a href="warranty.html">Advanced Search</a></li>
-                                    <li><a href="delivery-page.html">Orders and Returns</a></li>
-                                    <li><a href="contact.html">Contact Us</a></li>
+                                    <li><a href="about.html">VỀ CHÚNG TỐI</a></li>
+                                    <li><a href="support-24.html">DỊCH VỤ KHÁCH HÀNG</a></li>
+                                    <li><a href="faq.html">CHÍNH SÁCH</a></li>
+                                    <li><a href="site-map.html">BẢN ĐỒ</a></li>
+                                    <li><a href="typography.html">TÌM KIẾM</a></li>
+                                    <li><a href="warranty.html">KHUYÊN DÙNG</a></li>
+                                    <li><a href="delivery-page.html">ĐẶT HÀNG VÀ HOÀN TRẢ</a></li>
+                                    <li><a href="contact.html">LIÊN LẠC</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="mobile-collapse">
-                            <h4 class="text-left  title-under  mobile-collapse__title">WHY BUY FROM US</h4>
+                            <h4 class="text-left  title-under  mobile-collapse__title">LÝ DO MUA HÀNG</h4>
                             <div class="v-links-list mobile-collapse__content">
                                 <ul>
-                                    <li><a href="warranty.html">Shipping &amp; Returns</a></li>
-                                    <li><a href="typography.html">Secure Shopping</a></li>
-                                    <li><a href="about.html">International Shipping</a></li>
-                                    <li><a href="delivery-page.html">Affiliates</a></li>
-                                    <li><a href="support-24.html">Group Sales</a></li>
+                                    <li><a href="warranty.html">VẬN CHUYỂN</a></li>
+                                    <li><a href="typography.html">BẢO HÀNH</a></li>
+                                    <li><a href="about.html">THÔNG TIN</a></li>
+                                    <li><a href="delivery-page.html">ĐỊA LÝ</a></li>
+                                    <li><a href="support-24.html">GIẢM GIÁ</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="mobile-collapse">
-                            <h4 class="text-left  title-under  mobile-collapse__title">MY ACCOUNT</h4>
+                            <h4 class="text-left  title-under  mobile-collapse__title">TÀI KHOẢN</h4>
                             <div class="v-links-list mobile-collapse__content">
                                 <ul>
-                                    <li><a href="login_form.html">Sign In</a></li>
-                                    <li><a href="shopping_cart.html">View Cart</a></li>
-                                    <li><a href="wishlist.html">My Wishlist</a></li>
-                                    <li><a href="support-24.html">Track My Order</a></li>
-                                    <li><a href="faq.html">Help</a></li>
+                                    <li><a href="login_form.html">ĐĂNG KÝ</a></li>
+                                    <li><a href="shopping_cart.html">XEM GIỎ HÀNG</a></li>
+                                    <li><a href="wishlist.html">YÊU THÍCH</a></li>
+                                    <li><a href="support-24.html">ĐƠN HÀNG</a></li>
+                                    <li><a href="faq.html">TRỢ GIÚP</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -165,15 +171,15 @@
                                 +'<a href="#"><img src="../upload/'+item.product.image+'" alt="" /></a>'
                             +'</div>'
                             +'<div class="cart__item__control">'
-                                +'<div slug-code="'+item.product.code+'" class="cart__item__delete"><a href="javascript:void(0)" class="icon icon-delete"><span>Delete</span></a></div>'
-                                +'<div slug-code="'+item.product.code+'" class="cart__item__edit"><a href="javascript:void(0)" class="icon icon-edit"><span>Edit</span></a></div>'
+                                +'<div slug-code="'+item.product.code+'" class="cart__item__delete"><a href="javascript:void(0)" class="icon icon-delete"><span>Xóa</span></a></div>'
+                                +'<div slug-code="'+item.product.code+'" class="cart__item__edit"><a href="javascript:void(0)" class="icon icon-edit"><span>Sửa</span></a></div>'
                             +'</div>'
                             +'<div class="cart__item__info">'
                                 +'<div class="cart__item__info__title">'
                                     +'<h2><a href="#">'+item.product.name+'</a></h2>'
                                 +'</div>'
                                 +'<div class="cart__item__info__price"><span class="info-label">Price:</span><span>'+fomatVND(item.product.price)+'</span></div>'
-                                +'<div class="cart__item__info__qty"><span class="info-label">Qty:</span>'
+                                +'<div class="cart__item__info__qty"><span class="info-label">Số lượng: </span>'
                                     +'<input type="text" class="input--ys" value="'+item.quantity+'" />'
                                 +'</div>'
                             +'</div>'

@@ -5,18 +5,15 @@
 class Connection {
 	var $conn;
 	function getConnect() {
-		$serverName = "DESKTOP-BMK7D2Q"; //serverName\instanceName
-		$connectionInfo = array(
-			"Database" => "QuanLyBanSach",
-			"UID" => "sa",
-			"PWD" => "123456",
-			"CharacterSet" => "UTF-8",
-		);
-		$this->conn = sqlsrv_connect($serverName, $connectionInfo);
-
+		$servername = "localhost";
+		$database = "a_thuongmai_dientu";
+		$username = "root";
+		$password = "";
+		$this->conn = mysqli_connect($servername, $username, $password, $database);
+		$this->conn->set_charset('utf8');
 		if (!$this->conn) {
-			echo "Connection could not be established.<br />";
-			die(print_r(sqlsrv_errors(), true));
+			die("Lỗi kết nối database" .
+				mysqli_connect_error());
 		}
 		return $this->conn;
 	}

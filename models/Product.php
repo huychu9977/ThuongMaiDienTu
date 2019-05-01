@@ -6,125 +6,180 @@ class Product {
 		$connection = new Connection();
 		$this->connect = $connection->getConnect();
 	}
-	function findByCode($code, $site_id) {
-		$sql = "select b.*, sb.quantity from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on b.id = sb.book_id
-				where b.code = '" . $code . "' and sb.site_id = " . $site_id;
-		$stmt = sqlsrv_query($this->connect, $sql);
-		$result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+	function getColumns() {
+		$sql = "select COLUMN_NAME as c_name
+				from INFORMATION_SCHEMA.COLUMNS
+				WHERE TABLE_NAME = 'product' and TABLE_SCHEMA = 'a_thuongmai_dientu'";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = explode("_id", $row['c_name'])[0];
+		}
+		return $data;
+	}
+	function findByCode($code) {
+		$sql = "select b.* from product b where b.code = ? ";
+
+		$stmt = $this->connect->prepare($sql);
+		$stmt->bind_param('s', $code);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
 		return $result;
 	}
-	function findDetailByCode($code, $site_id) {
-		$sql = "select b.*, sb.quantity, a.name as aName, t.name as tName, p.name as pName from dbo.[book] b inner join dbo.[author] a on a.id = b.author_id inner join dbo.[type] t on t.id = b.type_id inner join dbo.[publisher] p on p.id = b.publisher_id join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on b.id = sb.book_id where b.code = '" . $code . "' and sb.site_id = " . $site_id;
-		$stmt = sqlsrv_query($this->connect, $sql);
-		$result = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+	function findDetailByCode($code) {
+		$sql = "SELECT
+				p.id,
+				p.`code`,
+				p.`name`,
+				p.quantity,
+				p.price,
+				p.description,
+				p.image,
+				p.created_date,
+				p.type_id,
+				t.`name` AS t_name,
+				b.`name` AS b_name,
+				pc.`name` AS pc_name,
+				pr.`name` AS pr_name,
+				pos.`name` AS pos_name,
+				pu.`name` AS pu_name,
+				pss.`name` AS pss_name,
+				pst.`name` AS pst_name
+			FROM
+				product p
+			LEFT JOIN product_type t ON t.id = p.type_id
+			LEFT JOIN product_branch b ON b.id = p.branch_id
+			LEFT JOIN product_color pc ON pc.id = p.color_id
+			LEFT JOIN product_ram pr ON pr.id = p.ram_id
+			LEFT JOIN product_operating_system pos ON pos.id = p.operating_system_id
+			LEFT JOIN product_cpu pu ON pu.id = p.cpu_id
+			LEFT JOIN product_screen_size pss ON pss.id = p.screen_size_id
+			LEFT JOIN product_status pst ON pst.id = p.status_id
+			WHERE
+				p.`code` = ?";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->bind_param('s', $code);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
 		return $result;
 	}
 	function findNew() {
-		$sql = "SELECT TOP 3 [code], [name], [price], [image] FROM [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[book] order by id";
-		$stmt = sqlsrv_query($this->connect, $sql);
+		$sql = "SELECT id, code, name, image, price FROM product order by id LIMIT 0,3";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 		return $data;
 	}
-	function findRecommend($typeId, $site_id) {
-		$sql = "select b.*, sb.quantity from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on b.id = sb.book_id where b.type_id = " . $typeId;
-		$sql .= " and sb.site_id = " . $site_id;
-		$stmt = sqlsrv_query($this->connect, $sql);
+	function findRecommend($typeId) {
+		$sql = "select p.* from product p where p.type_id = ?";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->bind_param('i', $typeId);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 		return $data;
 	}
-	function search($query, $page, $sort, $site_id) {
-		$sql = "select b.*, sb.quantity from dbo.[book] b";
+	function search($query, $page, $sort, $page_size) {
+		$sql = "select b.id, b.code, b.name, b.description, b.image, b.quantity, b.price, rate.star_rate, rate.count from product b";
 		$tmp_sql = "";
 		foreach ($query as $key => $value) {
-			if ($value["name"] != 'price') {
-				$sql .= " inner join dbo.[" . $value["name"] . "] a_" . $key . " on a_" . $key . ".id = b." . $value["name"] . "_id" . " and a_" . $key . ".code = '" . $value["code"] . "'";
-			} else {
+			if ($value["name"] != 'price' && $value["name"] != 'name') {
+				$sql .= " inner join product_" . $value["name"] . " a_" . $key . " on a_" . $key . ".id = b." . $value["name"] . "_id" . " and a_" . $key . ".code = '" . $value["code"] . "'";
+			} else if ($value["name"] == 'price') {
 				$tmp_sql .= " and b.price >= " . $value["from"] . "000 and b.price <= " . $value["to"] . "000";
+			} else if ($value["name"] == 'name') {
+				$tmp_sql .= " and b.name like '%" . $value["code"] . "%'";
 			}
 		}
-		$sql .= " inner join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where 1 = 1";
+		$sql .= " LEFT JOIN (
+					SELECT
+						product_id,
+						star_rate,
+						COUNT(star_rate) count
+					FROM
+						customer_reviews
+					GROUP BY
+						product_id,
+						star_rate
+					ORDER BY count, star_rate
+				) rate ON rate.product_id = b.id where 1 = 1";
 		$sql .= $tmp_sql;
-		$sql .= " and sb.site_id = " . $site_id;
-		$sql .= " order by b." . $sort . " desc OFFSET " . ($page - 1) * 12 . " ROWS FETCH NEXT 12 ROWS ONLY";
-		$stmt = sqlsrv_query($this->connect, $sql);
+
+		$sql .= " GROUP BY b.id order by b." . $sort . " desc limit " . ($page - 1) * $page_size . ", " . $page_size;
+
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 		return $data;
 	}
-	function count($query, $site_id) {
-		$sql = "select count(1) as total from dbo.[book] b";
+	function count($query) {
+		$sql = "select count(1) as total from product b";
 		$tmp_sql = "";
 		foreach ($query as $key => $value) {
-			if ($value["name"] != 'price') {
-				$sql .= " inner join dbo.[" . $value["name"] . "] a_" . $key . " on a_" . $key . ".id = b." . $value["name"] . "_id" . " and a_" . $key . ".code = '" . $value["code"] . "'";
-			} else {
+			if ($value["name"] != 'price' && $value["name"] != 'name') {
+				$sql .= " inner join product_" . $value["name"] . " a_" . $key . " on a_" . $key . ".id = b." . $value["name"] . "_id" . " and a_" . $key . ".code = '" . $value["code"] . "'";
+			} else if ($value["name"] == 'price') {
 				$tmp_sql .= " and b.price >= " . $value["from"] . "000 and b.price <= " . $value["to"] . "000";
+			} else if ($value["name"] == 'name') {
+				$tmp_sql .= " and b.name like '%" . $value["code"] . "%'";
 			}
 		}
-		$sql .= " inner join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where 1 = 1";
+		$sql .= " LEFT JOIN (
+					SELECT
+						product_id,
+						star_rate,
+						COUNT(star_rate) count
+					FROM
+						customer_reviews
+					GROUP BY
+						product_id,
+						star_rate
+					ORDER BY count
+				) rate ON rate.product_id = b.id where 1 = 1";
 		$sql .= $tmp_sql;
-		$sql .= " and sb.site_id = " . $site_id;
-		$stmt = sqlsrv_query($this->connect, $sql);
-		$total = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$total = $result->fetch_assoc();
 		return $total['total'];
 	}
-	function getAuthor($site_id) {
+	// lấy thông tin theo tên bảng
+	function getProperties($table_name) {
 		$sql = "select t.id, t.code, t.name, count(t.id) as total
-				from dbo.[author] t left join dbo.[book] b on b.author_id = t.id
-				left join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id
-				where sb.site_id = " . $site_id . "
+				from product_" . $table_name . " t left join product b on b." . $table_name . "_id = t.id
 				GROUP BY t.id, t.code, t.name";
-		$stmt = sqlsrv_query($this->connect, $sql);
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
 		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+		while ($row = $result->fetch_assoc()) {
 			$data[] = $row;
 		}
 		return $data;
 	}
-	function getType($site_id) {
-		$sql = "select t.id, t.code, t.name, count(t.id) as total
-				from dbo.[type] t left join dbo.[book] b on b.type_id = t.id
-				left join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id
-				where sb.site_id = " . $site_id . "
-				GROUP BY t.id, t.code, t.name";
-		$stmt = sqlsrv_query($this->connect, $sql);
-		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-	function getPublisher($site_id) {
-		$sql = "select t.id, t.code, t.name, count(t.id) as total
-				from dbo.[publisher] t left join dbo.[book] b on b.publisher_id = t.id
-				left join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id
-				where sb.site_id = " . $site_id . "
-				GROUP BY t.id, t.code, t.name";
-		$stmt = sqlsrv_query($this->connect, $sql);
-		$data = array();
-		while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-			$data[] = $row;
-		}
-		return $data;
-	}
-	function checkQuantity($code, $quantity, $site_id) {
-		$sql = "select count(1) as total from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where b.code = ? and sb.quantity >= ? and sb.site_id  = ?";
-		$stmt = sqlsrv_query($this->connect, $sql, array($code, $quantity, $site_id));
-		$total = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-		return $total['total'];
-	}
-	function updateProduct($code, $quantity, $site_id) {
-		$sql = "update [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] set quantity = ? where book_id = (select b.id from dbo.book b where b.code = ?) and site_id = ?";
-		$stmt = sqlsrv_query($this->connect, $sql, array($quantity, $code, $site_id));
-		return $stmt;
-	}
+	// function checkQuantity($code, $quantity, $site_id) {
+	// 	$sql = "select count(1) as total from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where b.code = ? and sb.quantity >= ? and sb.site_id  = ?";
+	// 	$stmt = mysqli_query($this->connect, $sql, array($code, $quantity, $site_id));
+	// 	$total = $stmt->fetch_assoc();
+	// 	return $total['total'];
+	// }
+	// function updateProduct($code, $quantity, $site_id) {
+	// 	$sql = "update [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] set quantity = ? where book_id = (select b.id from dbo.book b where b.code = ?) and site_id = ?";
+	// 	$stmt = mysqli_query($this->connect, $sql, array($quantity, $code, $site_id));
+	// 	return $stmt;
+	// }
 }
 ?>

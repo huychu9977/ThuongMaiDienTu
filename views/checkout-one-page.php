@@ -1,26 +1,26 @@
 <!-- include header -->
-<?php include('layout/header.php'); ?>
+<?php include 'layout/header.php';?>
     <!-- End HEADER section -->
 		<!-- breadcrumbs -->
 		<div class="breadcrumbs">
 			<div class="container">
 				<ol class="breadcrumb breadcrumb--ys pull-left">
-					<li class="home-link"><a href="?mod=home" class="icon icon-home"></a></li>					
+					<li class="home-link"><a href="?mod=home" class="icon icon-home"></a></li>
 					<li><a href="?mod=cart">Giỏ hàng</a></li>
 					<li class="active">Thanh toán</li>
 				</ol>
 			</div>
 		</div>
-		<!-- /breadcrumbs --> 
+		<!-- /breadcrumbs -->
 		<!-- CONTENT section -->
 		<div id="pageContent">
-			<div class="container">				
+			<div class="container">
 				<!-- title -->
 				<div class="title-box">
 					<h1 class="text-center text-uppercase title-under">Thanh toán</h1>
 				</div>
 				<!-- /title -->
-				<div class="row">		
+				<div class="row">
 				</div>
 				<hr>
 				<div class="row">
@@ -31,7 +31,7 @@
 							<span class="icon icon-person icon-large color"></span>
 							Thông tin giao hàng
 						</h2>
-						<?php if($shipInfo != null){ ?>
+						<?php if ($shipInfo != null) {?>
 						<div class="panel panel-default cart ship-info">
 			                <div class="panel-body">
 			                    <div class="order">
@@ -46,9 +46,12 @@
 			                    </div>
 			                </div>
 			            </div>
-			            <?php } ?>
+			            <?php }?>
 
-			            <div class="panel panel-default cart <?php if($shipInfo != null){ echo "ship-info an-hien";} ?>">
+			            <div class="panel panel-default cart <?php if ($shipInfo != null) {echo "ship-info an-hien";}?>">
+			            	<div class="row">
+			            		<a href="?mod=login&next-page=checkout">Đăng nhập nếu bạn đã là thành viên?</a>
+			            	</div>
 			                <div class="panel-body">
 								<form class="" action="?mod=update-ship-info" method="post">
 									<div class="row">
@@ -56,37 +59,64 @@
 											<div class="form-group">
 											    <label for="checkoutFormFirstName">Họ Tên <sup>*</sup></label>
 											    <input type="text" name="name" value="<?php echo $shipInfo['name']; ?>" class="form-control" id="checkoutFormFirstName" required="">
-											</div>	
+											</div>
 											<div class="form-group">
 											    <label for="checkoutFormCompany">Số điện thoại<sup>*</sup></label>
 											    <input type="text" name="phone" value="<?php echo $shipInfo['phone']; ?>" class="form-control" id="checkoutFormCompany" required="">
 											</div>
 										</div>
 									</div>
+
+									<div class="form-group">
+									    <label for="checkoutFormAddress12">Email nhận hóa đơn<sup>*</sup></label>
+									    <input type="email" class="form-control" name="email" value="<?php echo $shipInfo['email']; ?>" id="checkoutFormAddress12" required="">
+									</div>
+									<div class="form-group">
+									    <label for="checkoutFormAddress13">Thành phố<sup>*</sup></label>
+									    <select class="form-control" name="city_id" id="checkoutFormAddress13" required="">
+									    	<option value="xx">--Chọn thành phố--</option>
+											<?php foreach ($cities as $value) {
+	echo "<option value=" . $value['code'] . ">" . $value['name'] . "</option>";
+}?>
+
+									    </select>
+									</div>
+									<div class="form-group">
+									    <label for="checkoutFormAddress14">Quận/Huyện<sup>*</sup></label>
+									    <select class="form-control" name="district_id" id="checkoutFormAddress14" required="">
+
+									    </select>
+									</div>
+									<div class="form-group">
+									    <label for="checkoutFormAddress15">Phường/Xã<sup>*</sup></label>
+									    <select class="form-control" name="village_id" id="checkoutFormAddress15" required="">
+
+									    </select>
+									</div>
 									<div class="form-group">
 									    <label for="checkoutFormAddress11">Địa chỉ <sup>*</sup></label>
 									    <textarea class="form-control" name="address" id="checkoutFormAddress11" required=""><?php echo $shipInfo['address']; ?></textarea>
-									</div>	
+									</div>
 									<div class="form-group">
 									    <label for="note1">Ghi chú </label>
 									    <textarea name="description" class="form-control" id="note1"><?php echo $shipInfo['description']; ?></textarea>
-									</div>	
+									</div>
 									<div class="row">
 		                                <div class="col-xs-12">
 		                                	<button type="submit" name="register" class="btn btn--ys btn-top pull-right" >Cập nhật</button>
 		                                	<a href="javascript:void(0)" class="btn btn--ys btn-top pull-right edit1">Hủy</a>
-		                                    
+
 		                                </div>
 		                            </div>
 								</form>
 							</div>
 						</div>
-						
+
 						<div class="divider--xl"></div>
 						<!-- /NAME & ADDRESS  -->
 					</div>
 					<!--================= /col-left =================-->
-					
+
 					<!--================= col-right =================-->
 					<div class="col-md-12 col-lg-5">
 						<!-- Payment Method -->
@@ -106,7 +136,7 @@
 			                        	Thanh toán khi nhận hàng
 			                        </label>
 							    </div>
-							    <div class="form-group clearfix">								      	  						      
+							    <div class="form-group clearfix">
 			                          <label class="radio pull-left">
 			                            <input id="radio2" type="radio" value="online" name="radios">
 			                            <span class="outer">
@@ -134,13 +164,13 @@
 									    <input type="text" class="form-control" id="checkoutFormNameOnCard" required="">
 									    <span class="note"></span>
 									</div>
-									
+
 									<div class="form-group">
 									    <label for="checkoutDateOnCard">Ngày hết hạn <sup>*</sup></label>
 									    <input type="date" class="form-control" id="checkoutDateOnCard" required="">
 									    <span class="note"></span>
 									</div>
-									<!-- row-col-2 -->			
+									<!-- row-col-2 -->
 									<!-- /row-col-2 -->
 									<div class="form-group row">
 									    <div class="col-md-6">
@@ -153,12 +183,12 @@
 									    </div>
 									</div>
 									<a class="link-underline" href="#">What is this?</a>
-									
+
 								</form>
 								<div class="divider--xl"></div>
 									<!-- GRAND TOTAL -->
 								<div class="card card--padding fill-bg">
-									<table class="table-total-checkout">								
+									<table class="table-total-checkout">
 										<tbody>
 											<tr>
 												<th>Thanh toán:</th>
@@ -166,9 +196,9 @@
 											</tr>
 										</tbody>
 									</table>
-									<a id="accept-order" href="javascript:void(0)" class="<?php if($shipInfo == null){ echo "disabled";} ?> btn btn--ys btn--full btn--xl">Đặt hàng ngay<span class="icon icon-reply icon--flippedX"></span></a>							
+									<a id="accept-order" href="javascript:void(0)" class="<?php if ($shipInfo == null) {echo "disabled";}?> btn btn--ys btn--full btn--xl">Đặt hàng ngay<span class="icon icon-reply icon--flippedX"></span></a>
 								</div>
-							</div>	
+							</div>
 						</div>
 						<!-- /GRAND TOTAL -->
 					</div>
@@ -188,7 +218,7 @@
 									<a href="?mod=cart" class="btn btn-default btn-custom1">Sửa</a>
 					            </div>
 					            <div class="product">
-					                
+
 					            </div>
 
 					            <p class="list-info-price">
@@ -199,7 +229,7 @@
 					                <b>Phí vận chuyển</b>
 					                <span>0.000&nbsp;₫</span>
 					            </p>
-					                    
+
 					            <p class="total2">
 					                Thành tiền:
 					                <span class="color total-checkout">0.000&nbsp;₫ </span>
@@ -212,13 +242,13 @@
 
 					    </div>
 					</div>
-					<!--================= /col-center =================-->			
-				</div>								
+					<!--================= /col-center =================-->
+				</div>
 			</div>
 		</div>
-		<!-- End CONTENT section --> 
+		<!-- End CONTENT section -->
 		 <!-- FOOTER section -->
-    <?php include('layout/footer.php'); ?>
+    <?php include 'layout/footer.php';?>
         <!-- END FOOTER section -->
         <!-- jQuery 1.10.1-->
 <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
@@ -260,7 +290,7 @@
 						'<div class="item">'
 		                +'    <p class="title">'
 		                +'        <strong>'+item.quantity+' x</strong>'
-		                +'        <a href="" target="_blank">'+item.product.name+'</a>'
+		                +'        <a href="?mod=detail&code='+item.product.code+'">'+item.product.name+'</a>'
 		                +'        <span class="seller-by"> Đơn giá: '
 		                +'        	<strong class="firm">'+fomatVND(item.product.price)+'</strong>'
 		                +'        </span>'
@@ -311,11 +341,57 @@
 						})
 					}
 				}
-				
+
 			}
 		});
 		function fomatVND(input) {
             return input.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
         }
+        $(document).on('change', 'select[name="city_id"]', function(){
+        	var city_code = $(this).val();
+        	if(city_code === 'xx'){
+        		$('select[name="district_id"]').children().remove();
+        		$('select[name="village_id"]').children().remove();
+        	}else {
+        		$.ajax({
+	        		url : '?mod=map&action=get-district&city_code='+city_code,
+	        		type : 'get',
+	        		success : function(res){
+	        			if(res){
+	        				var data = JSON.parse(res);
+	        				$('select[name="district_id"]').children().remove();
+	        				$('select[name="village_id"]').children().remove();
+	        				$('select[name="district_id"]').append('<option value="xx">--Chọn quận/huyện--</option>')
+	        				data.forEach(function(item){
+	        					$('select[name="district_id"]').append('<option value="'+item.code+'">'+item.name+'</option>')
+	        				})
+	        			}
+	        		}
+	        	})
+        	}
+
+        });
+        $(document).on('change', 'select[name="district_id"]', function(){
+        	var city_code = $(this).val();
+        	if(city_code === 'xx'){
+        		$('select[name="village_id"]').children().remove();
+        	} else {
+        		$.ajax({
+	        		url : '?mod=map&action=get-village&district_code='+city_code,
+	        		type : 'get',
+	        		success : function(res){
+	        			if(res){
+	        				var data = JSON.parse(res);
+	        				$('select[name="village_id"]').children().remove();
+	        				$('select[name="village_id"]').append('<option value="xx">--Chọn phường/xã--</option>')
+	        				data.forEach(function(item){
+	        					$('select[name="village_id"]').append('<option value="'+item.code+'">'+item.name+'</option>')
+	        				})
+	        			}
+	        		}
+	        	})
+        	}
+
+        });
 	})
 </script>

@@ -48,64 +48,35 @@
                         <a href="#" class="icon icon-arrow-up"></a>
                     </div>
                     <!-- shopping by block -->
-                    <div class="collapse-block">
+                    <div class="collapse-block open">
                         <h4 class="collapse-block__title">ĐANG CHỌN:</h4>
                         <div class="collapse-block__content">
                             <ul class="filter-list">
-                                <li> Color: <span>White</span>
-                                    <a href="#" class="icon icon-clear icon-to-right"></a>
+                                <?php foreach ($category_name as $key => $value) {
+	if (isset($_GET[$key])) {
+		if ($key == 'price') {
+			$value = 'Giá';
+			$select = $prices[0] . '.000 - ' . $prices[1] . '.000';
+		} else {
+			$index1 = array_search($key, array_column($categories, 'code'));
+			$result = $categories[$index1]['data'];
+			$index2 = array_search($_GET[$key], array_column($result, 'code'));
+			$select = $result[$index2]['name'];
+		}
+		?>
+                                <li> <?=$value;?>: <span><?=$select;?></span>
+                                    <a href="javascript:;" filter-name="<?=$key;?>" filter-code="<?=$_GET[$key];?>" class="clear-filter icon icon-clear icon-to-right"></a>
                                 </li>
-                                <li> Size: <span>S</span>
-                                    <a href="#" class="icon icon-clear icon-to-right"></a>
-                                </li>
+                            <?php }}?>
                             </ul>
                             <a href="?mod=shop" class="btn btn--ys btn--sm btn--light">Clear All</a>
                         </div>
                     </div>
                     <!-- /shopping by block -->
-                    <!-- type block -->
-                    <div class="collapse-block open">
-                        <h4 class="collapse-block__title">THỂ LOẠI</h4>
-                        <div class="collapse-block__content">
-                            <ul class="simple-list">
-                                <?php foreach ($types as $au) {
-	?>
-                                <li <?php
-if (isset($_GET['type'])) {
-		if ($_GET['type'] == $au['code']) {
-			echo "class='active current'";
-		}
-	}
 
-	?> ><a slug-name="type" slug-code="<?php echo $au['code']; ?>" href="javascript:void(0)"><?php echo $au['name'] . "<b> (" . $au['total'] . ")</b>"; ?> </a></li>
-                                <?php }?>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /type block -->
-                    <!-- publisher block -->
-                    <div class="collapse-block open">
-                        <h4 class="collapse-block__title">CÔNG TY PHÁT HÀNH</h4>
-                        <div class="collapse-block__content">
-                            <ul class="simple-list">
-                                <?php foreach ($publishers as $au) {
-	?>
-                                <li <?php
-if (isset($_GET['publisher'])) {
-		if ($_GET['publisher'] == $au['code']) {
-			echo "class='active current'";
-		}
-	}
-
-	?> ><a slug-name="publisher" slug-code="<?php echo $au['code']; ?>" href="javascript:void(0)"><?php echo $au['name'] . "<b> (" . $au['total'] . ")</b>"; ?> </a></li>
-                                <?php }?>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /publisher block -->
                     <!-- price slider block -->
                     <div class="collapse-block open">
-                        <h4 class="collapse-block__title">PRICE</h4>
+                        <h4 class="collapse-block__title">Giá</h4>
                         <div class="collapse-block__content">
                             <div id="priceSlider" class="price-slider"></div>
                             <form action="#">
@@ -125,26 +96,30 @@ if (isset($_GET['publisher'])) {
                         </div>
                     </div>
                     <!-- /price slider block -->
-                    <!-- authors block -->
-                    <div class="collapse-block open">
-                        <h4 class="collapse-block__title">TÁC GIẢ</h4>
+
+                    <!-- categories -->
+                    <?php foreach ($categories as $c) {
+	?>
+                    <div class="collapse-block <?php if (isset($_GET[$c['code']])) {echo "open";}?>">
+                        <h4 class="collapse-block__title"><?=$c['name'];?></h4>
                         <div class="collapse-block__content">
                             <ul class="simple-list">
-                                <?php foreach ($authors as $au) {
-	?>
+                                <?php foreach ($c['data'] as $au) {
+		?>
                                 <li <?php
-if (isset($_GET['author'])) {
-		if ($_GET['author'] == $au['code']) {
-			echo "class='active current'";
+if (isset($_GET[$c['code']])) {
+			if ($_GET[$c['code']] == $au['code']) {
+				echo "class='active current'";
+			}
 		}
-	}
 
-	?> ><a slug-name="author" slug-code="<?php echo $au['code']; ?>" href="javascript:void(0)"><?php echo $au['name'] . "<b> (" . $au['total'] . ")</b>"; ?> </a></li>
+		?> ><a slug-name="<?=$c['code'];?>" slug-code="<?php echo $au['code']; ?>" href="javascript:void(0)"><?php echo $au['name'] . "<b> (" . $au['total'] . ")</b>"; ?> </a></li>
                                 <?php }?>
                             </ul>
                         </div>
                     </div>
-                    <!-- /authors block -->
+                    <?php }?>
+                    <!-- /categories -->
 
                     <!-- featured block -->
                     <div class="collapse-block open coll-products-js">
@@ -172,20 +147,7 @@ if (isset($_GET['author'])) {
                         </div>
                     </div>
                     <!-- /featured block -->
-                    <!-- tags block -->
-                    <div class="collapse-block">
-                        <h4 class="collapse-block__title">POPULAR TAGS</h4>
-                        <div class="collapse-block__content">
-                            <ul class="tags-list">
-                                <li><a href="#">Grey</a></li>
-                                <li><a href="#">Shirt</a></li>
-                                <li><a href="#">suit</a></li>
-                                <li><a href="#">Dresses </a></li>
-                                <li><a href="#">Outerwear</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- /tags block -->
+
                 </aside>
                 <!-- /left column -->
                 <!-- center column -->
@@ -220,14 +182,19 @@ if (isset($_GET['author'])) {
                             </div>
                         </div>
                         <div class="pull-right">
-                            <div class="filters-row__items hidden-sm hidden-xs"><?php echo $total; ?> Item(s)</div>
+                            <!-- <div class="filters-row__items hidden-sm hidden-xs"><?php echo $total; ?> Item(s)</div> -->
                             <div class="filters-row__select hidden-sm hidden-xs">
                                 <label>Show: </label>
                                 <div class="select-wrapper">
                                     <select class="select--ys show-qty">
-                                        <option>6</option>
-                                        <option>12</option>
-                                        <option>24</option>
+                                        <option <?php if ($page_size == 12) {
+	echo "selected";
+}
+?> value="12">12</option>
+                                        <option <?php if ($page_size == 24) {
+	echo "selected";
+}
+?> value="24">24</option>
                                     </select>
                                 </div>
                                 <a href="#" class="icon icon-arrow-down active"></a>
@@ -238,7 +205,12 @@ if (isset($_GET['author'])) {
                     <!-- /filters row -->
                     <div class="product-listing row">
 
-                        <?php foreach ($products as $p) {?>
+                        <?php
+if (count($products) <= 0) {
+	echo "<h4><i>Không tìm thấy sản phẩm !</i></h4>";
+} else {
+	foreach ($products as $p) {
+		?>
                         <div class="col-xs-6 col-sm-4 col-md-6 col-lg-4 col-xl-one-fifth">
                             <!-- product -->
                             <div class="product product--zoom">
@@ -266,7 +238,20 @@ if (isset($_GET['author'])) {
                                     <!-- product review -->
                                     <!-- visible only in row-view mode -->
                                     <div class="product__inside__review row-mode-visible">
-                                        <div class="rating row-mode-visible"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
+                                        <div class="rating row-mode-visible">
+                                            <?php
+for ($i = 0; $i < 5; $i++) {
+			if ($i < $p['star_rate']) {
+				echo '<span class="icon-star"></span>';
+			} else {
+				echo '<span class="icon-star empty-star"></span>';
+			}
+
+		}
+		?>
+
+
+                                        </div>
                                         <a href="#">1 Review(s)</a> <a href="#">Add Your Review</a>
                                     </div>
                                     <!-- /product review -->
@@ -288,14 +273,25 @@ if (isset($_GET['author'])) {
                                         </div>
                                         <!-- /product info -->
                                         <!-- product rating -->
-                                        <div class="rating row-mode-hide"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
+                                        <div class="rating row-mode-hide">
+                                                                                        <?php
+for ($i = 0; $i < 5; $i++) {
+			if ($i < $p['star_rate']) {
+				echo '<span class="icon-star"></span> ';
+			} else {
+				echo '<span class="icon-star empty-star"></span> ';
+			}
+
+		}
+		?>
+                                        </div>
                                         <!-- /product rating -->
                                     </div>
                                 </div>
                             </div>
                             <!-- /product -->
                         </div>
-                    <?php }?>
+                    <?php }}?>
                     </div>
                     <!-- filters row -->
                     <div class="filters-row">
@@ -305,7 +301,7 @@ if (isset($_GET['author'])) {
                             <div class="filters-row__pagination">
                                 <ul class="pagination">
                                     <?php
-for ($i = 1; $i <= ceil($total / 12); $i++) {
+for ($i = 1; $i <= ceil($total / $page_size); $i++) {
 	if ($page == $i) {
 		?>
                                         <li class="current active"><a href="javascript:void(0)"><?php echo $i; ?></a></li>
@@ -478,13 +474,42 @@ echo isset($prices) ? $prices[1] : 500;
                 $('.sort-position').change(function() {
                     replaceUrl(1);
                 })
+                $('.show-qty').change(function() {
+                    replaceUrl(1);
+                })
+                $('.clear-filter').click(function(){
+                    var code = $(this).attr('filter-code');
+                    var name = $(this).attr('filter-name');
+                    if(name === 'price'){
+                        $('#priceMin').val(0);
+                        $('#priceMax').val(500);
+                    } else
+                    $('a[slug-name="'+name+'"][slug-code="'+code+'"]').parent().removeClass('active');
+                    replaceUrl(1);
+                })
+                $(document).on('submit', '#search-form', function(e){
+                    e.preventDefault();
+                    var keyword = $(this).find('input[name="search"]').val().trim();
+                    if(keyword === '')
+                        window.location.replace('?mod=shop');
+                    else
+                        window.location.replace('?mod=shop&name=' + keyword);
+                })
                 function replaceUrl(page) {
+                    debugger;
                     var url = '?mod=shop';
+                    var keyword = $('#search-form').find('input[name="search"]').val().trim();
+                    if(keyword !== '') {
+                        url += '&name=' + keyword;
+                    }
                     $('.simple-list').find('li.active').children().each(function() {
                         url += '&' + $(this).attr('slug-name') + '=' +$(this).attr('slug-code');
                     })
                     if($('.sort-position').val() !== 'null') {
                         url += '&sort=' + $('.sort-position').val();
+                    }
+                    if(parseInt($('.show-qty').val()) !== 12) {
+                        url += '&page_size=' + $('.show-qty').val();
                     }
                     var minP = parseInt($('#priceMin').val());
                     var maxP = parseInt($('#priceMax').val());

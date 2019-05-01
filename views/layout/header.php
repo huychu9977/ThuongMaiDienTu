@@ -219,31 +219,6 @@
                             <!-- site start -->
                             <div class="site dropdown text-right">
                                 <div class="dropdown-label hidden-sm hidden-xs slogan">Bạn đang ở đâu ?</div>
-                                <a class="dropdown-toggle" data-toggle="dropdown">
-                                    <?php
-include_once 'models/Customer.php';
-$c = new Customer();
-if (!isset($_SESSION['site'])) {
-
-	$_SESSION['site'] = $c->findSiteByCode('SITE_HANOI');
-}
-echo $_SESSION['site']['location'];
-?>
-                                    <span class="caret"></span></a>
-                                <ul class="dropdown-menu dropdown-menu--xs-full">
-                                    <?php
-$sites = $c->getSites();
-foreach ($sites as $s) {
-	if ($_SESSION['site']['code'] != $s['code']) {
-		?>
-                                        <li>
-                                            <a slug-code="<?php echo $s['code']; ?>" href="javascript:void(0)">
-                                            <?php echo $s['location']; ?>
-                                            </a>
-                                        </li>
-                                    <?php }}?>
-                                    <li class="dropdown-menu__close"><a href="#"><span class="icon icon-close"></span>close</a></li>
-                                </ul>
                             </div>
                             <!-- site end -->
                         </div>
@@ -427,16 +402,6 @@ foreach ($sites as $s) {
                                                     </div>
                                                     <!-- /carousel -->
                                                 </li>
-                                                <li class="col-sm-12 hidden-xs">
-                                                    <div class="row">
-                                                        <div class="col-sm-6">
-                                                            <a href="#" class="discolor-hover"><img class="img-responsive" src="public/images/custom/banner-megamenu-01.jpg" alt="" /></a>
-                                                        </div>
-                                                        <div class="col-sm-6">
-                                                            <a href="#" class="discolor-hover"><img class="img-responsive" src="public/images/custom/banner-megamenu-02.jpg" alt="" /></a>
-                                                        </div>
-                                                    </div>
-                                                </li>
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-mega-menu">
@@ -552,12 +517,21 @@ foreach ($sites as $s) {
                         <div class="pull-right col-sm-3 col-md-3 col-lg-2">
                             <div class="text-right">
                                 <!-- search start -->
-                                <div class="search link-inline">
+                                <div class="search link-inline <?php if (isset($_GET['name'])) {
+	echo 'open';
+}
+?>">
                                     <a href="#" class="search__open"><span class="icon icon-search"></span></a>
-                                    <div class="search-dropdown">
-                                        <form action="#" method="get">
+                                    <div class="search-dropdown <?php if (isset($_GET['name'])) {
+	echo 'open';
+}
+?>">
+                                        <form id="search-form" method="get">
                                             <div class="input-outer">
-                                                <input type="search" name="search" value="" maxlength="128" placeholder="SEARCH:">
+                                                <input type="text" name="search" value="<?php if (isset($_GET['name'])) {
+	echo $_GET['name'];
+}
+?>" maxlength="128">
                                                 <button type="submit" title="" class="icon icon-search"></button>
                                             </div>
                                             <a href="#" class="search__close"><span class="icon icon-close"></span></a>
@@ -573,9 +547,8 @@ foreach ($sites as $s) {
                                         </a>
                                         <ul class="dropdown-menu dropdown-menu--xs-full">
                                             <?php if (isset($_SESSION['customer']) && $_SESSION['customer'] != null) {?>
-                                            <li><a href="?mod=account"><span class="icon icon-person"></span>My Account</a></li>
+                                            <li><a href="?mod=account"><span class="icon icon-person"></span>Tài khoản</a></li>
                                             <?php }?>
-                                            <li><a href="wishlist.html"><span class="icon icon-favorite_border"></span>My Wishlist</a></li>
 
                                             <li><a href="?mod=cart"><span class="icon icon-done_all"></span>Giỏ hàng</a></li>
                                             <?php if (!isset($_SESSION['customer']) || $_SESSION['customer'] == null) {?>
