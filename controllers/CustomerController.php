@@ -17,18 +17,24 @@ class CustomerController {
 			echo json_encode($this->customer->login($username, md5($password)));
 		}
 	}
+	function isValidEmail($email) {
+		return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
+	}
 	function register() {
-		$username = $_POST['username'];
 		$name = $_POST['name'];
 		$phone = $_POST['phone'];
 		$address = $_POST['address'];
 		$password = $_POST['password'];
 		$email = $_POST['email'];
-		if ($this->customer->findByUsername($username) != null) {
+		if (!$this->isValidEmail($email)) {
+			echo json_encode(false);
+			return;
+		}
+		if ($this->customer->findByEmail($email) != null) {
 			echo json_encode(false);
 		} else {
 			$code = "KH_" . date('Ymdhis');
-			$this->customer->register($code, $username, $password, $name, $address, $phone, $email);
+			$this->customer->register($code, md5($password), $name, $address, $phone, $email);
 			//$_SESSION['customer'] = $this->customer->login($username, $password);
 			echo json_encode(true);
 		}
@@ -107,10 +113,25 @@ class CustomerController {
 		$code = $_GET['code'];
 		echo json_encode($this->customer->findOrderDetail($code));
 	}
-	function setSite() {
-		$code = $_POST['code'];
-		$_SESSION['site'] = $this->customer->findSiteByCode($code);
-		echo json_encode(true);
+	function getReviews() {
+		$code = $_GET['code'];
+		$page = isset($_GET['page']) ? $_GET['page'] : 1;
+		$reviews = $this->customer->getReviews($page, $code);
+		$review_count = $this->customer->getReviewsCount($code);
+		echo json_encode([
+			'data' => $reviews,
+			'total' => $review_count,
+		]);
+	}
+	function addReview() {
+		$data = $_POST;
+		$data['customer_id'] = $_SESSION['customer']['id'];
+		$data['created_date'] = date('Y-m-d H:i:s');
+		if ($this->customer->addReview($data)) {
+			echo json_encode(true);
+		} else {
+			echo json_encode(false);
+		}
 	}
 	function logout() {
 		session_destroy();

@@ -1,5 +1,5 @@
 <!-- include header -->
-<?php include('layout/header.php'); ?>
+<?php include 'layout/header.php';?>
     <!-- End HEADER section -->
     <!-- breadcrumbs -->
     <div class="breadcrumbs">
@@ -37,11 +37,11 @@
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="username1">Tài khoản<sup>*</sup></label>
-                                <input type="text" class="form-control" name="username" id="username1">
+                                <input type="email" class="form-control" name="username" id="username1" required="">
                             </div>
                             <div class="form-group">
                                 <label for="password1">Mật khẩu <sup>*</sup></label>
-                                <input type="password" name="password" class="form-control" id="password1">
+                                <input type="password" name="password" class="form-control" id="password1" required="">
                             </div>
                             <p class="note" id="error-login"> <i></i> </p>
                             <div class="row">
@@ -68,9 +68,10 @@
                                 <input type="text" name="name" class="form-control" id="name" required="">
                             </div>
                             <div class="form-group">
-                                <label for="email">Email </label>
+                                <label for="email">Email <sup>*</sup></label>
                                 <input type="email" name="email" class="form-control" id="email">
                             </div>
+                            <p class="note" id="error-register"> <i></i> </p>
                             <div class="form-group">
                                 <label for="address">Địa chỉ </label>
                                 <input type="text" name="address" class="form-control" id="address">
@@ -79,11 +80,7 @@
                                 <label for="phone">Số điện thoại </label>
                                 <input type="text" name="phone" class="form-control" id="phone">
                             </div>
-                            <div class="form-group">
-                                <label for="username">Tài khoản <sup>*</sup></label>
-                                <input type="text" name="username" class="form-control" id="username" minlength="6" required="">
-                            </div>
-                            <p class="note" id="error-register"> <i></i> </p>
+
                             <div class="form-group">
                                 <label for="password">Mật khẩu <sup>*</sup></label>
                                 <input type="password" name="password" class="form-control" id="password" minlength="6" required="">
@@ -104,7 +101,7 @@
         </div>
     </div>
     <!-- End CONTENT section -->
-    <?php include('layout/footer.php'); ?>
+    <?php include 'layout/footer.php';?>
     <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap 3-->
 <script src="public/external/bootstrap/bootstrap.min.js"></script>
@@ -121,7 +118,12 @@
         <!-- Custom -->
         <script src="public/js/custom.js"></script>
         <script type="text/javascript">
-            var next_page = '<?php if(isset($_GET['next-page'])) echo $_GET['next-page']; else echo "home";?>';
+            var next_page = '<?php if (isset($_GET['next-page'])) {
+	echo $_GET['next-page'];
+} else {
+	echo "home";
+}
+?>';
         </script>
 <script>
     $(document).ready(function () {
@@ -137,7 +139,8 @@
                     $('#error-register i').text('Tài khoản đã được sử dụng!!');
                 } else {
                     $('#error-register i').text('');
-                    window.location.replace('?mod=home');
+                    alert('Đăng ký thành công!');
+                    location.reload();
                 }
             }, error : function(err) {console.log(res);}
         })

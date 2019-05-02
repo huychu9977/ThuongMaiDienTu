@@ -123,7 +123,7 @@ if (isset($_GET[$c['code']])) {
 
                     <!-- featured block -->
                     <div class="collapse-block open coll-products-js">
-                        <h4 class="collapse-block__title">Thịnh thành</h4>
+                        <h4 class="collapse-block__title">Sản phẩm mới</h4>
                         <div class="collapse-block__content coll-gallery">
                         </div>
 
@@ -223,6 +223,14 @@ if (count($products) <= 0) {
                                         <!-- /quick-view -->
                                     </div>
                                     <!-- /product image -->
+                                    <?php if ($p['sale_percent'] != null) {?>
+                                    <!-- lable sale -->
+                                    <div class="product__label product__label--left product__label--sale">
+                                        <span>Sale<br>
+                                                -<?=$p['sale_percent']?>%</span>
+                                    </div>
+                                    <!-- /lable sale -->
+                                    <?php }?>
                                     <!-- product name -->
                                     <div class="product__inside__name">
                                         <h2><a class="p-name" href="?mod=detail&code=<?php echo $p['code']; ?>"><?php echo $p['name']; ?></a></h2>

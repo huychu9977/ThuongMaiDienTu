@@ -89,7 +89,7 @@ class Product {
 		return $data;
 	}
 	function search($query, $page, $sort, $page_size) {
-		$sql = "select b.id, b.code, b.name, b.description, b.image, b.quantity, b.price, rate.star_rate, rate.count from product b";
+		$sql = "select b.id, b.code, b.name, b.description, b.image, b.quantity, b.price, rate.star_rate, rate.count, ps.sale_percent from product b";
 		$tmp_sql = "";
 		foreach ($query as $key => $value) {
 			if ($value["name"] != 'price' && $value["name"] != 'name') {
@@ -111,11 +111,10 @@ class Product {
 						product_id,
 						star_rate
 					ORDER BY count, star_rate
-				) rate ON rate.product_id = b.id where 1 = 1";
+				) rate ON rate.product_id = b.id LEFT JOIN product_sale ps ON ps.product_id = b.id where 1 = 1";
 		$sql .= $tmp_sql;
 
 		$sql .= " GROUP BY b.id order by b." . $sort . " desc limit " . ($page - 1) * $page_size . ", " . $page_size;
-
 		$stmt = $this->connect->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->get_result();
@@ -137,18 +136,7 @@ class Product {
 				$tmp_sql .= " and b.name like '%" . $value["code"] . "%'";
 			}
 		}
-		$sql .= " LEFT JOIN (
-					SELECT
-						product_id,
-						star_rate,
-						COUNT(star_rate) count
-					FROM
-						customer_reviews
-					GROUP BY
-						product_id,
-						star_rate
-					ORDER BY count
-				) rate ON rate.product_id = b.id where 1 = 1";
+		$sql .= " where 1 = 1";
 		$sql .= $tmp_sql;
 		$stmt = $this->connect->prepare($sql);
 		$stmt->execute();

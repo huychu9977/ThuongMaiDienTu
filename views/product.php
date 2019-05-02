@@ -101,7 +101,7 @@
                                         <!-- / -->
                                     </div>
                                     <div class="pull-left">
-                                        <button type="button" slug-code="<?php echo $product['code']; ?>" id="add-to-cart-detail" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span> Add to cart</button>
+                                        <button type="button" slug-code="<?php echo $product['code']; ?>" id="add-to-cart-detail" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span> Thêm vào giỏ</button>
                                     </div>
                                 </div>
                                 <ul class="product-link">
@@ -124,63 +124,56 @@
                                     <div class="divider divider--md"></div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="Tab2">
-                                    <h5><strong class="color">CUSTOMER REVIEWS 1 ITEM(S)</strong></h5>
+                                    <h5><strong class="color">Đánh giá sản phẩm</strong></h5>
                                     <div class="review-list">
-                                        <?php foreach ($reviews as $r) {
-	?>
-                                        <div class="item">
-                                            <div class="product-col-1">
-                                                <p class="image">
-                                                    <span class="avatar-letter">US</span>
-                                                </p>
-                                                <p class="name" itemprop="author"><?=$r['name'];?></p>
-                                            </div>
-                                            <div class="product-col-2">
-                                                <div class="infomation">
-                                                    <div class="rating">
-                                                        <div>
-                                                            <meta itemprop="ratingValue" content="3">
-                                                        </div>
-                                                        <p class="rating-content">
-<?php
-for ($i = 0; $i < 5; $i++) {
-		if ($i < $r['star_rate']) {
-			echo '<span class="icon-star"></span> ';
-		} else {
-			echo '<span class="icon-star empty-star"></span> ';
-		}
 
-	}
-	?>
-                                                        </p>
-                                                    </div>
-                                                    <p class="review" itemprop="name"><?=$r['title'];?></p>
-                                                    <p class="buy-already"><?=$r['created_date'];?></p>
-                                                    <div class="description js-description">
-                                                        <p class="review_detail" itemprop="reviewBody">
-                                                            <span>
-                                                            <?=$r['content'];?>
-                                                            <br>
-                                                            </span>
-                                                        </p>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php }?>
                                     </div>
                                     <div class="divider divider--xs"></div>
+                                    <div class="filters-row pagination-reviews">
+                                        <div class="pull-right">
+                                            <div class="filters-row__pagination">
+                                                <ul class="pagination">
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <?php if (isset($_SESSION['customer'])) {?>
-                                    <form action="#" class="contact-form">
-                                        <label>Nickname<span class="required">*</span></label>
-                                        <input type="text" class="input--ys input--ys--full">
-                                        <label>Summary of Your Review<span class="required">*</span></label>
-                                        <input type="text" class="input--ys input--ys--full">
-                                        <label>Review<span class="required">*</span></label>
-                                        <textarea class="textarea--ys input--ys--full"></textarea>
+                                    <form class="contact-form">
+
+                                        <input type="hidden" name="product_id" value="<?=$product['id']?>">
+                                        <input type="hidden" name="star_rate" value="0">
+                                        <section class='rating-widget'>
+                                            <label>Đánh giá</label>
+                                          <!-- Rating Stars Box -->
+                                          <div class='rating-stars text-center'>
+                                            <ul id='stars'>
+                                              <li class='star' title='Poor' data-value='1'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                              </li>
+                                              <li class='star' title='Fair' data-value='2'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                              </li>
+                                              <li class='star' title='Good' data-value='3'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                              </li>
+                                              <li class='star' title='Excellent' data-value='4'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                              </li>
+                                              <li class='star' title='WOW!!!' data-value='5'>
+                                                <i class='fa fa-star fa-fw'></i>
+                                              </li>
+                                            </ul>
+                                          </div>
+
+
+                                        </section>
+                                        <label>Tiêu đề<span class="required">*</span></label>
+                                        <input required="" name="title" type="text" class="input--ys input--ys--full">
+                                        <label>Nôị dung<span class="required">*</span></label>
+                                        <textarea required="" name="content" class="textarea--ys input--ys--full"></textarea>
                                         <div class="divider divider--xs"></div>
-                                        <button type="submit" class="btn btn--ys text-uppercase">Submit Review</button>
+                                        <button type="submit" class="btn btn--ys text-uppercase">Gửi đánh giá</button>
                                     </form>
                                 <?php }?>
                                 </div>
@@ -228,7 +221,7 @@ for ($i = 0; $i < 5; $i++) {
                                 <div class="product__inside__hover">
                                     <!-- product info -->
                                     <div class="product__inside__info">
-                                        <div class="product__inside__info__btns"> <a slug-code="<?php echo $pr['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl add-to-cart"><span class="icon icon-shopping_basket"></span> Add to cart</a>
+                                        <div class="product__inside__info__btns"> <a slug-code="<?php echo $pr['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl add-to-cart"><span class="icon icon-shopping_basket"></span> Thêm vào giỏ</a>
                                             <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-favorite_border"></span></a>
                                             <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-sort"></span></a>
                                         </div>
@@ -264,11 +257,11 @@ for ($i = 0; $i < 5; $i++) {
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            "<span id="cart-product-name"></span>" added to cart successfully!
+                            "<span id="cart-product-name"></span>" - đã được thêm vào giỏ!
                         </div>
                     </div>
                     <div class="modal-footer text-center">
-                        <a href="?mod=cart" class="btn btn--ys btn--full btn--lg">go to cart</a>
+                        <a href="?mod=cart" class="btn btn--ys btn--full btn--lg">Xem giỏ hàng!</a>
                     </div>
                 </div>
             </div>
@@ -285,6 +278,9 @@ for ($i = 0; $i < 5; $i++) {
         <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
         <!-- Bootstrap 3-->
         <script src="public/external/bootstrap/bootstrap.min.js"></script>
+        <script>
+            var code = '<?=$product["code"]?>';
+        </script>
         <script>
             $(document).ready(function () {
                 $(document).on('click', '#add-to-cart-detail', function() {
@@ -325,6 +321,129 @@ for ($i = 0; $i < 5; $i++) {
                             console.log(err);
                         }
                     })
+                }
+                loadReviews(1);
+                getRate();
+                $('.contact-form').submit(function(e){
+                    e.preventDefault();
+                    $.ajax({
+                        url : '?mod=add-review',
+                        type : 'post',
+                        data : $(this).serialize(),
+                        success : function(res) {
+                            if(res) {
+                                if(JSON.parse(res) === true)
+                                    loadReviews();
+                            }
+                        }
+                    })
+                })
+                function loadReviews(page){
+                    $.ajax({
+                        url : '?mod=get-reviews&code=' + code + '&page=' + page,
+                        type : 'get',
+                        success : function(res){
+                            if(res){
+                                $('.review-list').children().remove();
+                                var datax = JSON.parse(res);
+                                var reviews = datax.data;
+                                var total = datax.total;
+                                reviews.forEach(function(r){
+                                    var star = '';
+                                    for (var i = 0; i < 5; i++) {
+                                        if(i < parseInt(r.star_rate)){
+                                            star += '<span class="icon-star"></span> ';
+                                        } else {
+                                            star += '<span class="icon-star empty-star"></span> ';
+                                        }
+                                        r.star_rate[i]
+                                    }
+
+                                    $('.review-list').append('<div class="item">'
+                                        +'    <div class="product-col-1">'
+                                        +'        <p class="image">'
+                                        +'            <span class="avatar-letter">US</span>'
+                                        +'        </p>'
+                                        +'        <p class="name">'+r.name+'</p>'
+                                        +'    </div>'
+                                        +'    <div class="product-col-2">'
+                                        +'        <div class="infomation">'
+                                        +'            <p class="review">'+r.title+'</p>'
+                                        +'            <div class="rating">'
+                                        +'                <div>'
+                                        +'                    <meta itemprop="ratingValue" content="3">'
+                                        +'                </div>'
+                                        +'                <p class="rating-content">'
+                                        + star
+                                        +'                </p>'
+                                        +'            </div>'
+                                        +'            <p class="buy-already">'+r.created_date+'</p>'
+                                        +'            <div class="description js-description">'
+                                        +'                <p class="review_detail" itemprop="reviewBody">'
+                                        +'                    <span>'
+                                        +'                    '+r.content+''
+                                        +'                    <br>'
+                                        +'                    </span>'
+                                        +'                </p>'
+                                        +'            </div>'
+                                        +'        </div>'
+                                        +'    </div>'
+                                        +'</div>')
+                                    $('.pagination-reviews ul').children().remove();
+                                    for (var i = 1; i <= Math.ceil(total/3); i++) {
+                                        var selected = '';
+                                        if(page === i){
+                                            selected = 'active';
+                                        }
+                                        $('.pagination-reviews ul').append('<li value="'+i+'" class="'+selected+'"><a href="javascript:void(0)"> '+i+'</a></li>');
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
+                $(document).on('click', '.pagination-reviews ul li', function(){
+                    var page = $(this).attr('value');
+                    loadReviews(parseInt(page));
+                })
+                function getRate(){
+                    /* 1. Visualizing things on Hover - See next part for action on click */
+                    $('#stars li').on('mouseover', function () {
+                        var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+
+                        // Now highlight all the stars that's not after the current hovered star
+                        $(this).parent().children('li.star').each(function (e) {
+                            if (e < onStar) {
+                                $(this).addClass('hover');
+                            } else {
+                                $(this).removeClass('hover');
+                            }
+                        });
+
+                    }).on('mouseout', function () {
+                        $(this).parent().children('li.star').each(function (e) {
+                            $(this).removeClass('hover');
+                        });
+                    });
+
+
+                    /* 2. Action to perform on click */
+                    $('#stars li').on('click', function () {
+                        var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+                        var stars = $(this).parent().children('li.star');
+
+                        for (i = 0; i < stars.length; i++) {
+                            $(stars[i]).removeClass('selected');
+                        }
+
+                        for (i = 0; i < onStar; i++) {
+                            $(stars[i]).addClass('selected');
+                        }
+                        // JUST RESPONSE (Not needed)
+                        var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+                        $('input[name="star_rate"]').val(ratingValue);
+                    });
+
                 }
             })
         </script>

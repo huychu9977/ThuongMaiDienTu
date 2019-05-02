@@ -97,8 +97,12 @@ case 'find-order-detail':{
 		$cus->findOrderDetail();
 		break;
 	}
-case 'set-site':{
-		$cus->setSite();
+case 'get-reviews':{
+		$cus->getReviews();
+		break;
+	}
+case 'add-review':{
+		$cus->addReview();
 		break;
 	}
 case 'map':{

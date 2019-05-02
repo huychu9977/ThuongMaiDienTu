@@ -618,13 +618,13 @@
                                     <span class="input-group-addon">
                                 <span class="icon icon-person"></span>
                                     </span>
-                                    <input type="text" name="username" id="LoginFormName" class="form-control" placeholder="Tài khoản:">
+                                    <input type="email" name="username" id="LoginFormName" class="form-control" placeholder="Tài khoản:" required="">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">@</span>
-                                    <input type="password" name="password" id="LoginFormPass" class="form-control" placeholder="Mật khẩu:">
+                                    <input type="password" name="password" id="LoginFormPass" class="form-control" placeholder="Mật khẩu:" required="">
                                 </div>
                             </div>
                             <p class="note" id="error-m"><i></i></p>

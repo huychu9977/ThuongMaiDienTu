@@ -87,14 +87,12 @@ class ProductController {
 			header("location: ?mod=page-404");
 		} else {
 			$productRecommend = $this->product->findRecommend($product['type_id']);
-			$reviews = $this->customer->getReviews(1, $code);
+
 			require_once 'views/product.php';
 		}
 
 	}
-	// function get_reviews(){
-	// 	$reviews
-	// }
+
 	function getDistrict() {
 		$city_code = $_GET['city_code'];
 		$districts = $this->map->getDistrict($city_code);
@@ -126,8 +124,6 @@ class ProductController {
 	function page_login() {
 		require_once 'views/login_form.php';
 	}
-	function isValidEmail($email) {
-		return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
-	}
+
 }
 ?>

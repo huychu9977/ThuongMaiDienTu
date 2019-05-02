@@ -1,5 +1,5 @@
 <!-- include header -->
-<?php include('layout/header.php'); ?>
+<?php include 'layout/header.php';?>
     <!-- End HEADER section -->
     <!-- breadcrumbs -->
     <div class="breadcrumbs">
@@ -32,47 +32,43 @@
                         <th>Mã đơn hàng</th>
                         <th>Ngày lập</th>
                         <th>Trạng thái xử lý</th>
-                        <th>Chi nhánh</th>
                         <th>Tổng</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($orders as $order){ ?>
+                    <?php foreach ($orders as $order) {
+	?>
                     <tr>
                         <td>
-                            <div class="th-title visible-xs">Order</div><a class="view-order-detail" slug-code="<?php echo $order['code'];?>" href="javascript:void(0)"><?php echo $order['code'];?></a></td>
+                            <div class="th-title visible-xs">Order</div><a class="view-order-detail" slug-code="<?php echo $order['code']; ?>" href="javascript:void(0)"><?php echo $order['code']; ?></a></td>
                         <td>
-                            <div class="th-title visible-xs">Date</div><?php echo $order['created_date']->format('Y-m-d H:i:s');?></td>
+                            <div class="th-title visible-xs">Date</div><?php echo $order['created_date']; ?></td>
                         <td>
                             <div class="th-title visible-xs">Payment Status</div>
-                            <?php 
-                                switch ($order['status']) {
-                                    case 1:
-                                         echo "Đang xử lý!";
-                                         break;
-                                    case 2:
-                                         echo "Đang vận chuyển!";
-                                         break;
-                                    case 3:
-                                         echo "Đã thanh toán & chờ nhận hàng!";
-                                         break;
-                                    case 4:
-                                         echo "Đã hoàn thành!";
-                                         break;
-                                     default:
-                                         echo "Lỗi!";
-                                         break;
-                                 } 
-                            ?>
-                        </td>
-                        <td>
-                            <div class="th-title visible-xs">Fulfillment Status</div>
-                            <?php echo $order['location'];?>
+                            <?php
+switch ($order['status']) {
+	case 1:
+		echo "Đang xử lý!";
+		break;
+	case 2:
+		echo "Đang vận chuyển!";
+		break;
+	case 3:
+		echo "Đã thanh toán & chờ nhận hàng!";
+		break;
+	case 4:
+		echo "Đã hoàn thành!";
+		break;
+	default:
+		echo "Lỗi!";
+		break;
+	}
+	?>
                         </td>
                         <td>
                             <div class="th-title visible-xs">Total</div><?php echo number_format($order['total_price'], 0) . "&nbsp;₫"; ?></td>
                     </tr>
-                    <?php } ?>
+                    <?php }?>
                 </tbody>
             </table>
 
@@ -83,20 +79,20 @@
                         <tbody>
                             <tr>
                                 <td class="text-right color-dark"><b>Họ tên:</b></td>
-                                <td><?php echo $_SESSION['customer']['name'];?></td>
+                                <td><?php echo $_SESSION['customer']['name']; ?></td>
                             </tr>
                             <tr>
                                 <td class="text-right color-dark"><b>E-mail:</b></td>
-                                <td><a href="mailto:<?php echo $_SESSION['customer']['email'];?>"><?php echo $_SESSION['customer']['email'];?></a></td>
+                                <td><a href="mailto:<?php echo $_SESSION['customer']['email']; ?>"><?php echo $_SESSION['customer']['email']; ?></a></td>
                             </tr>
                             <tr>
                                 <td class="text-right color-dark"><b>Địa chỉ:</b></td>
-                                <td><?php echo $_SESSION['customer']['address'];?>,
+                                <td><?php echo $_SESSION['customer']['address']; ?>,
                                     <br> Việt Nam</td>
                             </tr>
                             <tr>
                                 <td class="text-right color-dark"><b>Số điện thoại:</b></td>
-                                <td><?php echo $_SESSION['customer']['phone'];?></td>
+                                <td><?php echo $_SESSION['customer']['phone']; ?></td>
                             </tr>
                         </tbody>
                     </table>
@@ -121,7 +117,7 @@
                                 <table class="table-order-history">
                                     <thead>
                                         <tr>
-                                            <th>Tên sách</th>
+                                            <th>Tên máy</th>
                                             <th>Đơn giá</th>
                                             <th>Đã mua</th>
                                             <th>Tổng</th>
@@ -137,7 +133,7 @@
                 </div>
             </div>
         </div>
-    <?php include('layout/footer.php'); ?>
+    <?php include 'layout/footer.php';?>
 <!-- jQuery 1.10.1-->
 <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap 3-->
