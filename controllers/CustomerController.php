@@ -34,17 +34,14 @@ class CustomerController {
 		}
 	}
 	function updateShipInfo() {
-		$name = $_POST['name'];
-		$phone = $_POST['phone'];
-		$address = $_POST['address'];
-		$description = $_POST['description'];
+		$data = $_POST;
 		if ($this->customer->getShipInfo($_SESSION['customer']['id'])) {
-			if ($this->customer->updateShipInfo($_SESSION['customer']['id'], $name, $address, $phone, $description)) {
+			if ($this->customer->updateShipInfo($_SESSION['customer']['id'], $data)) {
 				header("location: ?mod=checkout");
 			} else {
 			}
 		} else {
-			if ($this->customer->insertShipInfo($_SESSION['customer']['id'], $name, $address, $phone, $description)) {
+			if ($this->customer->insertShipInfo($_SESSION['customer']['id'], $data)) {
 				header("location: ?mod=checkout");
 			} else {
 			}
@@ -52,16 +49,30 @@ class CustomerController {
 
 	}
 	function createOrder() {
-		$siteId = isset($_SESSION['site']) ? $_SESSION['site']['id'] : 1;
+		if (!isset($_SESSION['customer'])) {
+
+		} else {
+			if ($this->customer->getShipInfo($_SESSION['customer']['id']) == null) {
+				echo json_encode([
+					'status' => false,
+					'title' => 'Vui lòng cập nhật thông tin giao hàng!',
+				]);
+				return;
+			}
+		}
+
 		$data = json_decode(file_get_contents('php://input'), true);
 		$check = 0;
 		foreach ($data as $value) {
-			if ($this->product->checkQuantity($value['product']['code'], $value['quantity'], $siteId) == 0) {
+			if ($this->product->checkQuantity($value['product']['code'], $value['quantity']) == 0) {
 				$check = 1;
 			}
 		}
 		if ($check == 1) {
-			echo json_encode(false);
+			echo json_encode([
+				'status' => false,
+				'title' => 'Số lượng sản phẩm đã vượt quá!',
+			]);
 			return;
 		} else {
 			$code = "HD_" . date('Ymdhis');
@@ -76,7 +87,10 @@ class CustomerController {
 					$this->product->updateProduct($value['product']['code'], $value['product']['quantity'] - $value['quantity'], $siteId);
 				}
 			} else {}
-			echo json_encode(true);
+			echo json_encode([
+				'status' => true,
+				'title' => 'Thanh toán thành công!',
+			]);
 		}
 
 	}

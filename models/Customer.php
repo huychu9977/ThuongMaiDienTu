@@ -27,21 +27,31 @@ class Customer {
 	// 	return $result;
 	// }
 	function getShipInfo($id) {
-		$sql = "select * from dbo.[ship_info] where customer_id = '" . $id . "'";
-		$stmt = mysqli_query($this->cus, $sql);
-		$result = $stmt->fetch_assoc();
+		$sql = "select csi.*, md.`code` as d_code, mc.`code` as c_code, md.`name` as d_name, mc.`name` as c_name, mv.`name` as v_name from customer_ship_info csi
+				join map_village mv ON mv.`code` = csi.village_code
+				join map_district md ON md.`code` = mv.district_code
+				join map_city mc ON mc.`code` = md.city_code where customer_id = ?";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('i', $id);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
 		return $result;
 	}
-	// function insertShipInfo($id, $name, $address, $phone, $description) {
-	// 	$sql = "insert into dbo.[ship_info] (name, [address], phone, description, customer_id) values(?,?,?,?,?)";
-	// 	$stmt = mysqli_query($this->cus, $sql, array($name, $address, $phone, $description, $id));
-	// 	return $stmt;
-	// }
-	// function updateShipInfo($id, $name, $address, $phone, $description) {
-	// 	$sql = "update dbo.[ship_info] set name = ?, [address] = ?, phone = ?, description = ? where [customer_id] = ?";
-	// 	$stmt = mysqli_query($this->cus, $sql, array($name, $address, $phone, $description, $id));
-	// 	return $stmt;
-	// }
+	function insertShipInfo($id, $data) {
+		$sql = "insert into customer_ship_info (name, address, phone, note, email, village_code, customer_id) values(?,?,?,?,?,?,?)";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('ssssssi', $data['name'], $data['address'], $data['phone'], $data['note'], $data['email'], $data['village_code'], $id);
+		$stmt->execute();
+
+		return $stmt;
+	}
+	function updateShipInfo($id, $data) {
+		$sql = "update customer_ship_info set name = ?, address = ?, phone = ?, note = ?, email = ?, village_code = ? where customer_id = ?";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('ssssssi', $data['name'], $data['address'], $data['phone'], $data['note'], $data['email'], $data['village_code'], $id);
+		$stmt->execute();
+		return $stmt;
+	}
 	// function createOder($code, $customerId, $status, $createdDate, $createdBy, $saleType, $siteId) {
 	// 	$sql = "insert into [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[order] (code, customer_id, status, created_date, created_by, sale_type, site_id) values(?,?,?,?,?,?,?)";
 	// 	$stmt = mysqli_query($this->cus, $sql, array($code, $customerId, $status, $createdDate, $createdBy, $saleType, $siteId));

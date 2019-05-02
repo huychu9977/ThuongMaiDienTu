@@ -170,6 +170,70 @@ class Product {
 		}
 		return $data;
 	}
+	function getSliders() {
+		$sql = "select * from slider";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+	function getProductSales() {
+		$sql = "SELECT p.*, ps.sale_percent FROM product p JOIN product_sale ps ON ps.product_id = p.id ORDER BY p.created_date DESC LIMIT 0,5";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+	function getProductNews() {
+		$sql = "SELECT p.* FROM product p ORDER BY p.created_date DESC LIMIT 0,5";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+	function getProductHots() {
+		$sql = "SELECT
+					od.product_id,
+					p.id,
+					p.`code`,
+					p.`name`,
+					p.price,
+					p.image,
+					o.`code` AS o_code,
+					ps.sale_percent,
+					sum(od.quantity) AS quantity
+				FROM
+					`order` o
+				JOIN order_detail od ON od.order_id = o.id
+				JOIN product p ON p.id = od.product_id
+				LEFT JOIN product_sale ps ON p.id = ps.product_id
+				GROUP BY
+					od.product_id
+				ORDER BY
+					quantity DESC
+				LIMIT 0,
+				 5";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->execute();
+		$result = $stmt->get_result();
+		$data = array();
+		while ($row = $result->fetch_assoc()) {
+			$data[] = $row;
+		}
+		return $data;
+	}
 	// function checkQuantity($code, $quantity, $site_id) {
 	// 	$sql = "select count(1) as total from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where b.code = ? and sb.quantity >= ? and sb.site_id  = ?";
 	// 	$stmt = mysqli_query($this->connect, $sql, array($code, $quantity, $site_id));

@@ -20,6 +20,10 @@ class ProductController {
 		echo json_encode($this->product->findDetailByCode($code));
 	}
 	function page_home() {
+		$sliders = $this->product->getSliders();
+		$products_sale = $this->product->getProductSales();
+		$products_new = $this->product->getProductNews();
+		$products_hot = $this->product->getProductHots();
 		require_once 'views/index.php';
 	}
 	function page_404() {
@@ -105,6 +109,14 @@ class ProductController {
 
 		$shipInfo = isset($_SESSION['customer']['id']) ? $this->customer->getShipInfo($_SESSION['customer']['id']) : null;
 		$cities = $this->map->getCity();
+		if ($shipInfo != null) {
+			if ($shipInfo['c_code'] != null) {
+				$districts = $this->map->getDistrict($shipInfo['c_code']);
+			}
+			if ($shipInfo['d_code'] != null) {
+				$villages = $this->map->getVillage($shipInfo['d_code']);
+			}
+		}
 		require_once 'views/checkout-one-page.php';
 	}
 	function page_account() {

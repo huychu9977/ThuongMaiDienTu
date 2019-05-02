@@ -40,9 +40,17 @@
 			                    </div>
 			                    <div class="information">
 			                        <h6><?php echo $shipInfo['name']; ?></h6>
-			                        <p class="end"><?php echo $shipInfo['address']; ?>
-			                        	<br>Việt Nam
-			                        	<br>Điện thoại: <?php echo $shipInfo['phone']; ?></p>
+			                        <p class="end">
+			                        	<b>Địa chỉ:</b>
+			                        	<?php echo $shipInfo['address']; ?>,
+			                        	<?php echo $shipInfo['v_name']; ?>,
+			                        	<?php echo $shipInfo['d_name']; ?>,
+			                        	<?php echo $shipInfo['c_name']; ?>
+
+
+			                        	<br><b>Việt Nam</b>
+			                        	<br><b>Điện thoại:</b> <?php echo $shipInfo['phone']; ?>
+			                        </p>
 			                    </div>
 			                </div>
 			            </div>
@@ -55,16 +63,18 @@
 			            	</div>
 			            <?php }?>
 			                <div class="panel-body">
-								<form class="" action="?mod=update-ship-info" method="post">
+								<form class="ship-info" action="?mod=update-ship-info" method="post">
 									<div class="row">
 										<div class="col-md-12 col-lg-12 col-xl-6">
 											<div class="form-group">
 											    <label for="checkoutFormFirstName">Họ Tên <sup>*</sup></label>
 											    <input type="text" name="name" value="<?php echo $shipInfo['name']; ?>" class="form-control" id="checkoutFormFirstName" required="">
+											    <span class="note"></span>
 											</div>
 											<div class="form-group">
 											    <label for="checkoutFormCompany">Số điện thoại<sup>*</sup></label>
 											    <input type="text" name="phone" value="<?php echo $shipInfo['phone']; ?>" class="form-control" id="checkoutFormCompany" required="">
+											    <span class="note"></span>
 											</div>
 										</div>
 									</div>
@@ -72,36 +82,55 @@
 									<div class="form-group">
 									    <label for="checkoutFormAddress12">Email nhận hóa đơn<sup>*</sup></label>
 									    <input type="email" class="form-control" name="email" value="<?php echo $shipInfo['email']; ?>" id="checkoutFormAddress12" required="">
+									    <span class="note"></span>
 									</div>
 									<div class="form-group">
 									    <label for="checkoutFormAddress13">Thành phố<sup>*</sup></label>
-									    <select class="form-control" name="city_id" id="checkoutFormAddress13" required="">
+									    <select class="form-control" name="city_code" id="checkoutFormAddress13" required="">
 									    	<option value="xx">--Chọn thành phố--</option>
 											<?php foreach ($cities as $value) {
-	echo "<option value=" . $value['code'] . ">" . $value['name'] . "</option>";
+	$class = $value['code'] == $shipInfo['c_code'] ? 'selected' : "";
+	echo "<option " . $class . " value=" . $value['code'] . ">" . $value['name'] . "</option>";
 }?>
 
 									    </select>
+									    <span class="note"></span>
 									</div>
+
 									<div class="form-group">
 									    <label for="checkoutFormAddress14">Quận/Huyện<sup>*</sup></label>
-									    <select class="form-control" name="district_id" id="checkoutFormAddress14" required="">
-
+									    <select class="form-control" name="district_code" id="checkoutFormAddress14" required="">
+										<?php if ($shipInfo['c_code'] != null) {
+	foreach ($districts as $key => $value) {
+		?>
+											<option <?php if ($value['code'] == $shipInfo['d_code']) {
+			echo "selected";
+		}?> value="<?=$value['code']?>"><?=$value['name']?></option>
+										<?php }}?>
 									    </select>
+									    <span class="note"></span>
 									</div>
 									<div class="form-group">
 									    <label for="checkoutFormAddress15">Phường/Xã<sup>*</sup></label>
-									    <select class="form-control" name="village_id" id="checkoutFormAddress15" required="">
-
+									    <select class="form-control" name="village_code" id="checkoutFormAddress15" required="">
+<?php if ($shipInfo['d_code'] != null) {
+	foreach ($villages as $key => $value) {
+		?>
+											<option <?php if ($value['code'] == $shipInfo['village_code']) {
+			echo "selected";
+		}?> value="<?=$value['code']?>"><?=$value['name']?></option>
+										<?php }}?>
 									    </select>
+									    <span class="note"></span>
 									</div>
 									<div class="form-group">
 									    <label for="checkoutFormAddress11">Địa chỉ <sup>*</sup></label>
 									    <textarea class="form-control" name="address" id="checkoutFormAddress11" required=""><?php echo $shipInfo['address']; ?></textarea>
+									    <span class="note"></span>
 									</div>
 									<div class="form-group">
 									    <label for="note1">Ghi chú </label>
-									    <textarea name="description" class="form-control" id="note1"><?php echo $shipInfo['description']; ?></textarea>
+									    <textarea name="note" class="form-control" id="note1"><?php echo $shipInfo['note']; ?></textarea>
 									</div>
 								<?php if (isset($_SESSION['customer'])) {?>
 									<div class="row">
@@ -200,7 +229,7 @@
 											</tr>
 										</tbody>
 									</table>
-									<a id="accept-order" href="javascript:void(0)" class="<?php if ($shipInfo == null) {echo "disabled";}?> btn btn--ys btn--full btn--xl">Đặt hàng ngay<span class="icon icon-reply icon--flippedX"></span></a>
+									<a id="accept-order" href="javascript:void(0)" class="<?php if (isset($_SESSION['customer']) && $shipInfo == null) {echo "disabled";}?> btn btn--ys btn--full btn--xl">Đặt hàng ngay<span class="icon icon-reply icon--flippedX"></span></a>
 								</div>
 							</div>
 						</div>
@@ -264,6 +293,9 @@
 <script src="public/external/colorbox/jquery.colorbox-min.js"></script>
         <!-- Custom -->
         <script src="public/js/custom.js"></script>
+        <script>
+        	var customer_status = "<?php echo isset($_SESSION['customer']) ? 1 : 0 ?>";
+        </script>
 <script>
 	$(document).ready(function () {
 		if(localStorage.getItem('cart') === null){
@@ -311,51 +343,79 @@
 			$('.ship-info').toggleClass('an-hien');
 		});
 		$(document).on('click', '#accept-order', function(){
-			if(localStorage.getItem('cart') === null){
-				localStorage.setItem('cart', JSON.stringify([]));
-			} else {
-				var paymentType = $('input[name="radios"]:checked').val();
-				var check = 0;
-				if(paymentType === 'online') {
-					$('#form-card input').each(function(element){
-						if(!$(this).val()) {
-							$(this).next('span.note').html('<i>Trường bắt buộc!</i>');
-							check = 1;
-						} else{
-							$(this).next('span.note').html('');
-						}
-					});
-				}
-				if(check === 0){
-					var cart = localStorage.getItem('cart');
-					if(cart.length > 0){
-						$.ajax({
-							url : '?mod=create-order&payment-type=' + paymentType,
-							method : 'post',
-							contentType: 'application/json',
-			    			data: cart,
-			    			success : function(res) {
-			    				if(JSON.parse(res) === true){
-			    					localStorage.setItem('cart', JSON.stringify([]));
-			    					window.location.replace('?mod=account');
-			    				} else {
-			    					alert('Sản phẩm đã hết hàng!');
-			    				}
-			    			}, error: function(err){console.log(err);}
-						})
-					}
-				}
+			var check1 = 0;
+			if(customer_status === "0") {
+				$('.ship-info .form-control').not('textarea[name="note"]').each(function(){
+					if($(this).val() === '' || $(this).val() === null || $(this).val() === 'xx'){
+						$(this).next('span.note').html('<i>Trường bắt buộc!</i>');
+			 				check1 = 1;
+					} else {
+						if($(this).context.name === 'email') {
+							if(!isValidEmailAddress($(this).val())) {
+								$(this).next('span.note').html('<i>Nhập đúng định dạng!</i>');
+								check1 = 1;
+							} else
+		 						$(this).next('span.note').html('');
+						} else
+		 					$(this).next('span.note').html('');
+		 			}
+				})
 
 			}
+			if (check1 === 0) {
+				if(localStorage.getItem('cart') === null){
+					localStorage.setItem('cart', JSON.stringify([]));
+				} else {
+					var paymentType = $('input[name="radios"]:checked').val();
+					var check = 0;
+					if(paymentType === 'online') {
+						$('#form-card input').each(function(element){
+							if(!$(this).val()) {
+								$(this).next('span.note').html('<i>Trường bắt buộc!</i>');
+								check = 1;
+							} else{
+								$(this).next('span.note').html('');
+							}
+						});
+					}
+					if(check === 0){
+						var cart = localStorage.getItem('cart');
+						if(cart.length > 0){
+							$.ajax({
+								url : '?mod=create-order&payment-type=' + paymentType,
+								method : 'post',
+								contentType: 'application/json',
+				    			data: cart,
+				    			success : function(res) {
+				    				var r = JSON.parse(res);
+				    				if(r.status === true){
+				    					alert(r.title);
+				    					localStorage.setItem('cart', JSON.stringify([]));
+				    					window.location.replace('?mod=account');
+				    				} else {
+				    					alert(r.title);
+				    				}
+				    			}, error: function(err){console.log(err);}
+							})
+						}
+					}
+
+				}
+			}
+
 		});
+		function isValidEmailAddress(emailAddress) {
+		    var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
+		    return pattern.test(emailAddress);
+		}
 		function fomatVND(input) {
             return input.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
         }
-        $(document).on('change', 'select[name="city_id"]', function(){
+        $(document).on('change', 'select[name="city_code"]', function(){
         	var city_code = $(this).val();
         	if(city_code === 'xx'){
-        		$('select[name="district_id"]').children().remove();
-        		$('select[name="village_id"]').children().remove();
+        		$('select[name="district_code"]').children().remove();
+        		$('select[name="village_code"]').children().remove();
         	}else {
         		$.ajax({
 	        		url : '?mod=map&action=get-district&city_code='+city_code,
@@ -363,11 +423,11 @@
 	        		success : function(res){
 	        			if(res){
 	        				var data = JSON.parse(res);
-	        				$('select[name="district_id"]').children().remove();
-	        				$('select[name="village_id"]').children().remove();
-	        				$('select[name="district_id"]').append('<option value="xx">--Chọn quận/huyện--</option>')
+	        				$('select[name="district_code"]').children().remove();
+	        				$('select[name="village_code"]').children().remove();
+	        				$('select[name="district_code"]').append('<option value="xx">--Chọn quận/huyện--</option>')
 	        				data.forEach(function(item){
-	        					$('select[name="district_id"]').append('<option value="'+item.code+'">'+item.name+'</option>')
+	        					$('select[name="district_code"]').append('<option value="'+item.code+'">'+item.name+'</option>')
 	        				})
 	        			}
 	        		}
@@ -375,10 +435,10 @@
         	}
 
         });
-        $(document).on('change', 'select[name="district_id"]', function(){
+        $(document).on('change', 'select[name="district_code"]', function(){
         	var city_code = $(this).val();
         	if(city_code === 'xx'){
-        		$('select[name="village_id"]').children().remove();
+        		$('select[name="village_code"]').children().remove();
         	} else {
         		$.ajax({
 	        		url : '?mod=map&action=get-village&district_code='+city_code,
@@ -386,10 +446,10 @@
 	        		success : function(res){
 	        			if(res){
 	        				var data = JSON.parse(res);
-	        				$('select[name="village_id"]').children().remove();
-	        				$('select[name="village_id"]').append('<option value="xx">--Chọn phường/xã--</option>')
+	        				$('select[name="village_code"]').children().remove();
+	        				$('select[name="village_code"]').append('<option value="xx">--Chọn phường/xã--</option>')
 	        				data.forEach(function(item){
-	        					$('select[name="village_id"]').append('<option value="'+item.code+'">'+item.name+'</option>')
+	        					$('select[name="village_code"]').append('<option value="'+item.code+'">'+item.name+'</option>')
 	        				})
 	        			}
 	        		}
