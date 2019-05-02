@@ -46,7 +46,7 @@
             <div class="clearfix shopping-cart-btns">
                 <a id="update-cart" class="btn btn--ys btn--light pull-right" href="javascript:void(0)"><span class="icon icon-autorenew"></span>CẬP NHẬT GIỎ HÀNG</a>
                 <div class="divider divider--xs visible-xs"></div>
-                <a class="btn btn--ys btn--light" href="#"><span class="icon icon-delete"></span>XÓA GIỎ HÀNG</a>
+                <a id="delete-cart" class="btn btn--ys btn--light" href="javascript:void(0);"><span class="icon icon-delete"></span>XÓA GIỎ HÀNG</a>
                 <div class="divider divider--xs visible-xs"></div>
                 <a class="btn btn--ys btn--light pull-left btn-right" href="?mod=shop"><span class="icon icon-keyboard_arrow_left"></span>Tiếp tục mua sắm </a>
                 <div class="divider divider--xs visible-xs"></div>
@@ -98,6 +98,8 @@
     <?php include 'layout/footer.php';?>
         <!-- jQuery 1.10.1-->
         <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
+        <!-- Bootstrap 3-->
+        <script src="public/external/bootstrap/bootstrap.min.js"></script>
         <script src="public/external/slick/slick.min.js"></script>
         <script src="public/external/colorbox/jquery.colorbox-min.js"></script>
         <script src="public/external/imagesloaded/imagesloaded.pkgd.min.js"></script>
@@ -115,6 +117,13 @@
                 window.location.replace('?mod=empty-cart');
             }
         }
+        $('#delete-cart').click(function(){
+            var r = confirm("Bạn muốn xóa hết sản phẩm trong giỏ hàng ?");
+            if (r == true) {
+              localStorage.setItem('cart', JSON.stringify([]));
+              location.reload();
+            }
+        });
         showCartDetail();
         function showCartDetail() {
             var cart = JSON.parse(localStorage.getItem('cart'));
@@ -134,10 +143,8 @@
                                 +'</a></div></td>'
                             +'<td>'
                                 +'<h5 class="shopping-cart-table__product-name text-left text-uppercase">'
-                                        +'<a href="product.html">'+item.product.name+'</a> </h5>'
+                                        +'<a href="?mod=detail&code='+item.product.code+'">'+item.product.name+'</a> </h5>'
                                 +'<ul class="shopping-cart-table__list-parameters">'
-                                    +'<li> <span>Color:</span> Purple </li>'
-                                    +'<li> <span>Quantity:</span> 200 </li>'
                                     +'<li class="visible-xs">'
                                         +'<span>Price:</span>'
                                         +'<span class="price-mobile">'+fomatVND(item.product.price)+'</span>'
@@ -197,7 +204,11 @@
             var cart = JSON.parse(localStorage.getItem('cart'));
             cart.forEach(function(item) {
                 if(item.product.code === code){
-                    item.quantity = quantity;
+                    if(parseInt(item.product.quantity) < parseInt(quantity)){
+                        alert(item.product.name + ' -- chỉ có thể mua thêm tối đa ' +(item.product.quantity - item.quantity)+ ' sản phẩm!');
+                        return;
+                    } else
+                        item.quantity = parseInt(quantity);
                 }
             })
             localStorage.setItem('cart', JSON.stringify(cart));

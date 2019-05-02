@@ -3,7 +3,7 @@ session_start();
 if (isset($_GET['mod'])) {
 	$mod = $_GET['mod'];
 } else {
-	$mod = 'page-404';
+	$mod = 'home';
 }
 require_once 'controllers/ProductController.php';
 $pc = new ProductController();

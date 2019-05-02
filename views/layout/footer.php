@@ -214,7 +214,11 @@
             var cart = JSON.parse(localStorage.getItem('cart'));
             cart.forEach(function(item, index){
                 if(item.product.code === code) {
-                    item.quantity = parseInt(quantity);
+                    if(parseInt(item.product.quantity) < parseInt(quantity)){
+                        alert('Bạn đã có '+item.quantity+' sp trong giỏ! \nChỉ có thể mua thêm tối đa ' +(item.product.quantity - item.quantity)+ ' sản phẩm!');
+                        return;
+                    } else
+                        item.quantity = parseInt(quantity);
                 }
             });
             localStorage.setItem('cart', JSON.stringify(cart));

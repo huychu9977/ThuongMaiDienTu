@@ -49,9 +49,11 @@
 			            <?php }?>
 
 			            <div class="panel panel-default cart <?php if ($shipInfo != null) {echo "ship-info an-hien";}?>">
+			            <?php if (!isset($_SESSION['customer'])) {?>
 			            	<div class="row">
 			            		<a href="?mod=login&next-page=checkout">Đăng nhập nếu bạn đã là thành viên?</a>
 			            	</div>
+			            <?php }?>
 			                <div class="panel-body">
 								<form class="" action="?mod=update-ship-info" method="post">
 									<div class="row">
@@ -101,6 +103,7 @@
 									    <label for="note1">Ghi chú </label>
 									    <textarea name="description" class="form-control" id="note1"><?php echo $shipInfo['description']; ?></textarea>
 									</div>
+								<?php if (isset($_SESSION['customer'])) {?>
 									<div class="row">
 		                                <div class="col-xs-12">
 		                                	<button type="submit" name="register" class="btn btn--ys btn-top pull-right" >Cập nhật</button>
@@ -108,6 +111,7 @@
 
 		                                </div>
 		                            </div>
+		                        <?php }?>
 								</form>
 							</div>
 						</div>

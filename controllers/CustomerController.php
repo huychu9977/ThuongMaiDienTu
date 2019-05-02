@@ -10,11 +10,11 @@ class CustomerController {
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 	}
 	function login($username, $password) {
-		if ($this->customer->login($username, $password) == null) {
+		if ($this->customer->login($username, md5($password)) == null) {
 			echo json_encode(false);
 		} else {
-			$_SESSION['customer'] = $this->customer->login($username, $password);
-			echo json_encode($this->customer->login($username, $password));
+			$_SESSION['customer'] = $this->customer->login($username, md5($password));
+			echo json_encode($this->customer->login($username, md5($password)));
 		}
 	}
 	function register() {

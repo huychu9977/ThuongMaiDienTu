@@ -219,7 +219,7 @@ if (count($products) <= 0) {
                                     <div class="product__inside__image">
                                         <a href="?mod=detail&code=<?php echo $p['code']; ?>"> <img src="../upload/<?php echo $p['image']; ?>" alt=""> </a>
                                         <!-- quick-view -->
-                                        <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="quick-view-detail quick-view"><b><span class="icon icon-visibility"></span> Quick view</b> </a>
+                                        <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="quick-view-detail quick-view"><b><span class="icon icon-visibility"></span> Xem ngay</b> </a>
                                         <!-- /quick-view -->
                                     </div>
                                     <!-- /product image -->
@@ -260,11 +260,11 @@ for ($i = 0; $i < 5; $i++) {
                                         <div class="product__inside__info">
                                             <div class="product__inside__info__btns">
                                                 <a href="javascript:void(0)" slug-code="<?php echo $p['code']; ?>" class="btn btn--ys btn--xl add-to-cart">
-                                                    <span class="icon icon-shopping_basket"></span> Add to cart
+                                                    <span class="icon icon-shopping_basket"></span> Thêm vào giỏ
                                                 </a>
                                                 <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-favorite_border"></span></a>
                                                 <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-sort"></span></a>
-                                                <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="quick-view-detail icon icon-visibility"></span> Quick view</a>
+                                                <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="quick-view-detail icon icon-visibility"></span> Xem ngay</a>
                                             </div>
                                             <ul class="product__inside__info__link hidden-sm">
                                                 <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Add to wishlist</span></a></li>
@@ -343,20 +343,44 @@ for ($i = 1; $i <= ceil($total / $page_size); $i++) {
                                     </div>
                                     <div class="product-info col-xs-12 col-sm-7 col-md-6 col-lg-6">
                                         <div class="wrapper">
-                                            <div class="product-info__sku pull-left">Tác giả: <strong class="pro_aName"></strong></div>
-                                            <div class="product-info__availabilitu pull-right">Nhà xuất bản:
-                                                <strong class="color pro_pName"></strong></div>
+                                            <div class="product-info__sku pull-left">Hãng : <strong class="pro_b_name"></strong></div>
+                                            <div class="product-info__availabilitu pull-right">Trạng thái:
+                                                <strong class="color pro_pst_name"></strong></div>
                                         </div>
                                         <div class="product-info__title" >
                                             <h2 class="pro_name">Lorem ipsum dolor sit ctetur</h2>
                                         </div>
-                                        <div class="price-box product-info__price"><span class="price-box__new pro_name">$65.00</span> </div>
-                                        <div class="divider divider--xs product-info__divider"></div>
                                         <div class="product-info__description">
-                                            <div class="product-info__description__brand"><img src="public/images/custom/brand.png" alt=""> </div>
-                                            <div class="product-info__description__text pro_description">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                            <table class="table table-params table-hover">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Đơn giá</span></td>
+                                                        <td class="pro_price"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Màu</span></td>
+                                                        <td class="pro_pc_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Thể loại</span></td>
+                                                        <td class="pro_t_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">RAM</span></td>
+                                                        <td class="pro_pr_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Hệ điều hành</span></td>
+                                                        <td class="pro_pos_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Dòng CPU</span></td>
+                                                        <td class="pro_pu_name"></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="divider divider--xs product-info__divider"></div>
                                         <div class="divider divider--sm"></div>
                                         <div class="wrapper">
                                             <div class="pull-left"><span class="qty-label">Số lượng:</span></div>
@@ -364,7 +388,7 @@ for ($i = 1; $i <= ceil($total / $page_size); $i++) {
                                                 <input type="number" min="1" name="quantity" class="input--ys qty-input pull-left" value="1">
                                             </div>
                                             <div class="pull-left">
-                                                <button slug-code="" type="button" id="add-to-cart-modal" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span> Add to cart</button>
+                                                <button slug-code="" type="button" id="add-to-cart-modal" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span>Thêm vào giỏ</button>
                                             </div>
                                         </div>
                                         <ul class="product-link">
@@ -390,11 +414,11 @@ for ($i = 1; $i <= ceil($total / $page_size); $i++) {
                     </div>
                     <div class="modal-body">
                         <div class="text-center">
-                            "<span id="cart-product-name"></span>" added to cart successfully!
+                            "<span id="cart-product-name"></span>" - đã được thêm vào giỏ!
                         </div>
                     </div>
                     <div class="modal-footer text-center">
-                        <a href="?mod=cart" class="btn btn--ys btn--full btn--lg">go to cart</a>
+                        <a href="?mod=cart" class="btn btn--ys btn--full btn--lg">Xem giỏ hàng!</a>
                     </div>
                 </div>
             </div>
@@ -433,24 +457,36 @@ echo isset($prices) ? $prices[1] : 500;
                         success : function(res) {
                             if(res) {
                                 var product = JSON.parse(res);
-                                var cart = JSON.parse(localStorage.getItem('cart'));
-                                var check = 0;
-                                cart.forEach(function(item){
-                                    if(item.product.code === product.code) {
-                                        item.quantity += quantity;
-                                        check = 1;
-                                    }
-                                });
-                                if (check === 0) {
-                                    cart.push({
-                                        "product" : product,
-                                        "quantity" : quantity
+                                if(parseInt(product.quantity) > quantity) {
+                                    var cart = JSON.parse(localStorage.getItem('cart'));
+                                    var check = 0;
+                                    cart.forEach(function(item){
+                                        if(item.product.code === product.code) {
+                                            item.quantity += quantity;
+                                            if(parseInt(product.quantity) < item.quantity){
+                                                item.quantity -= quantity;
+                                                alert('Bạn đã có '+item.quantity+' sp trong giỏ! \nChỉ có thể mua thêm tối đa ' +(product.quantity - item.quantity)+ ' sản phẩm!');
+                                                check = 2;
+                                            } else
+                                                check = 1;
+                                        }
                                     });
-                                    $('#open-cart .badge--cart').text(cart.length);
+                                    if (check === 0) {
+                                        cart.push({
+                                            "product" : product,
+                                            "quantity" : quantity
+                                        });
+                                        $('#open-cart .badge--cart').text(cart.length);
+                                    }
+                                    if(check !== 2){
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+                                        $("#cart-product-name").text(product.name);
+                                        $('#modalAddToCart').modal('show');
+                                    }
+
+                                } else {
+                                    alert('Chỉ có thể mua tối đa ' +product.quantity+ ' sản phẩm!');
                                 }
-                                localStorage.setItem('cart', JSON.stringify(cart));
-                                $("#cart-product-name").text(product.name);
-                                $('#modalAddToCart').modal('show');
                             }
                         },
                         error : function(err) {
@@ -544,6 +580,8 @@ echo isset($prices) ? $prices[1] : 500;
                                             $('#add-to-cart-modal').attr('slug-code', product[key]);
                                         } else if (key === 'quantity'){
                                             $('#add-to-cart-modal').parents('.product-info').find('input[name="quantity"]').attr('max', product[key]);
+                                        } else if (key === 'price'){
+                                            $('.pro_' + key).text(fomatVND(product[key]));
                                         } else
                                             $('.pro_' + key).text(product[key]);
                                     }
@@ -555,6 +593,9 @@ echo isset($prices) ? $prices[1] : 500;
                             console.log(err);
                         }
                     })
+                }
+                function fomatVND(input) {
+                    return input.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
                 }
             });
         </script>

@@ -6,13 +6,14 @@ class Customer {
 		$conn = new Connection();
 		$this->cus = $conn->getConnect();
 	}
-	// function login($username, $password) {
-	// 	$sql = "select c.id, c.username, c.name, c.address, c.phone, c.email from dbo.[customer] c where c.username = ? and c.password = ?";
-	// 	$stmt = $this->cus->prepare($sql);
-	// 	$stmt->bind_param('ss', $username, md5($password));
-	// 	$result = $stmt->get_result()->fetch_assoc();
-	// 	return $result;
-	// }
+	function login($email, $password) {
+		$sql = "select c.id, c.name, c.address, c.phone, c.email from customer c where c.email = ? and c.password = ?";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('ss', $email, $password);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
+		return $result;
+	}
 	// function findByUsername($username) {
 	// 	$sql = "select * from dbo.[customer] where username = '" . $username . "'";
 	// 	$stmt = mysqli_query($this->cus, $sql);
@@ -25,12 +26,12 @@ class Customer {
 	// 	$result = $stmt->fetch_assoc();
 	// 	return $result;
 	// }
-	// function getShipInfo($id) {
-	// 	$sql = "select * from dbo.[ship_info] where customer_id = '" . $id . "'";
-	// 	$stmt = mysqli_query($this->cus, $sql);
-	// 	$result = $stmt->fetch_assoc();
-	// 	return $result;
-	// }
+	function getShipInfo($id) {
+		$sql = "select * from dbo.[ship_info] where customer_id = '" . $id . "'";
+		$stmt = mysqli_query($this->cus, $sql);
+		$result = $stmt->fetch_assoc();
+		return $result;
+	}
 	// function insertShipInfo($id, $name, $address, $phone, $description) {
 	// 	$sql = "insert into dbo.[ship_info] (name, [address], phone, description, customer_id) values(?,?,?,?,?)";
 	// 	$stmt = mysqli_query($this->cus, $sql, array($name, $address, $phone, $description, $id));
