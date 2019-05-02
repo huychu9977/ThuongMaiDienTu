@@ -38,12 +38,17 @@ class Customer {
 		return $result;
 	}
 	function insertShipInfo($id, $data) {
+
+		$ship = array();
+		foreach ($data as $key => $value) {
+			$ship[$value['name']] = $value['value'];
+		}
 		$sql = "insert into customer_ship_info (name, address, phone, note, email, village_code, customer_id) values(?,?,?,?,?,?,?)";
 		$stmt = $this->cus->prepare($sql);
-		$stmt->bind_param('ssssssi', $data['name'], $data['address'], $data['phone'], $data['note'], $data['email'], $data['village_code'], $id);
+		$stmt->bind_param('ssssssi', $ship['name'], $ship['address'], $ship['phone'], $ship['note'], $ship['email'], $ship['village_code'], $id);
 		$stmt->execute();
-
-		return $stmt;
+		$result = $stmt->insert_id;
+		return $result;
 	}
 	function updateShipInfo($id, $data) {
 		$sql = "update customer_ship_info set name = ?, address = ?, phone = ?, note = ?, email = ?, village_code = ? where customer_id = ?";
@@ -52,16 +57,21 @@ class Customer {
 		$stmt->execute();
 		return $stmt;
 	}
-	// function createOder($code, $customerId, $status, $createdDate, $createdBy, $saleType, $siteId) {
-	// 	$sql = "insert into [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[order] (code, customer_id, status, created_date, created_by, sale_type, site_id) values(?,?,?,?,?,?,?)";
-	// 	$stmt = mysqli_query($this->cus, $sql, array($code, $customerId, $status, $createdDate, $createdBy, $saleType, $siteId));
-	// 	return $stmt;
-	// }
-	// function createOderDetail($code, $bookId, $quantity, $price) {
-	// 	$sql = "insert into [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[order_detail] (order_code, book_id, quantity, price) values(?,?,?,?)";
-	// 	$stmt = mysqli_query($this->cus, $sql, array($code, $bookId, $quantity, $price));
-	// 	return $stmt;
-	// }
+	function createOder($code, $shipId, $status, $createdDate) {
+		$sql = "insert into `order` (`code`, ship_info_id, `status`, created_date) values(?,?,?,?)";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('siis', $code, $shipId, $status, $createdDate);
+		$stmt->execute();
+		$result = $stmt->insert_id;
+		return $result;
+	}
+	function createOderDetail($order_id, $product_id, $quantity, $product_price) {
+		$sql = "insert into order_detail (order_id, product_id, quantity, product_price) values(?,?,?,?)";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('iiii', $order_id, $product_id, $quantity, $product_price);
+		$stmt->execute();
+		return $stmt;
+	}
 	// function getOrders($customerId) {
 	// 	$sql = "select o.code, o.status, o.created_date, s.location, sum(od.price * od.quantity) as total_price from [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[order] o
 	// 			left join dbo.[site] s on o.site_id = s.id

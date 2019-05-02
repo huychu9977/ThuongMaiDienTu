@@ -49,48 +49,57 @@ class CustomerController {
 
 	}
 	function createOrder() {
-		if (!isset($_SESSION['customer'])) {
-
-		} else {
-			if ($this->customer->getShipInfo($_SESSION['customer']['id']) == null) {
-				echo json_encode([
-					'status' => false,
-					'title' => 'Vui lòng cập nhật thông tin giao hàng!',
-				]);
-				return;
-			}
-		}
-
 		$data = json_decode(file_get_contents('php://input'), true);
 		$check = 0;
-		foreach ($data as $value) {
-			if ($this->product->checkQuantity($value['product']['code'], $value['quantity']) == 0) {
+		$product_fail = array();
+		foreach ($data['cart'] as $value) {
+			$code = $this->product->checkQuantity($value['product']['code'], $value['quantity']);
+			if ($code == null) {
 				$check = 1;
+
+			} else {
+				array_push($product_fail, $code);
 			}
 		}
 		if ($check == 1) {
 			echo json_encode([
 				'status' => false,
+				'code' => 'over_product',
 				'title' => 'Số lượng sản phẩm đã vượt quá!',
+				'product_code' => $product_fail,
 			]);
 			return;
 		} else {
-			$code = "HD_" . date('Ymdhis');
-			$createdDate = date('Y-m-d H:i:s');
-			$customerId = $_SESSION['customer']['id'];
-			$status = $_GET['payment-type'] == 'online' ? 3 : 1;
-			$createdBy = null;
-			$saleType = 2;
-			if ($this->customer->createOder($code, $customerId, $status, $createdDate, $createdBy, $saleType, $siteId)) {
-				foreach ($data as $key => $value) {
-					$this->customer->createOderDetail($code, $value['product']['id'], $value['quantity'], $value['product']['price']);
-					$this->product->updateProduct($value['product']['code'], $value['product']['quantity'] - $value['quantity'], $siteId);
+			if (!isset($_SESSION['customer'])) {
+				$id_ship_info = $this->customer->insertShipInfo(null, $data['ship_info']);
+
+				if ($id_ship_info) {
+					$code = "HD_" . date('Ymdhis');
+					$createdDate = date('Y-m-d H:i:s');
+					$status = $_GET['payment-type'] == 'online' ? 3 : 1;
+					$order_id = $this->customer->createOder($code, $id_ship_info, $status, $createdDate);
+					if ($order_id) {
+						foreach ($data['cart'] as $key => $value) {
+							$this->customer->createOderDetail($order_id, $value['product']['id'], $value['quantity'], $value['product']['price']);
+							$this->product->updateProduct($value['product']['code'], $value['quantity']);
+						}
+					} else {}
+					echo json_encode([
+						'status' => true,
+						'title' => 'Thanh toán thành công!',
+					]);
 				}
-			} else {}
-			echo json_encode([
-				'status' => true,
-				'title' => 'Thanh toán thành công!',
-			]);
+
+			} else {
+				if ($this->customer->getShipInfo($_SESSION['customer']['id']) == null) {
+					echo json_encode([
+						'status' => false,
+						'code' => 'ship_info_empty',
+						'title' => 'Vui lòng cập nhật thông tin giao hàng!',
+					]);
+					return;
+				}
+			}
 		}
 
 	}

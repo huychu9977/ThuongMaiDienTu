@@ -234,16 +234,26 @@ class Product {
 		}
 		return $data;
 	}
-	// function checkQuantity($code, $quantity, $site_id) {
-	// 	$sql = "select count(1) as total from dbo.[book] b join [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] sb on sb.book_id = b.id where b.code = ? and sb.quantity >= ? and sb.site_id  = ?";
-	// 	$stmt = mysqli_query($this->connect, $sql, array($code, $quantity, $site_id));
-	// 	$total = $stmt->fetch_assoc();
-	// 	return $total['total'];
-	// }
-	// function updateProduct($code, $quantity, $site_id) {
-	// 	$sql = "update [DESKTOP-BMK7D2Q].[QuanLyBanSach].[dbo].[site_book] set quantity = ? where book_id = (select b.id from dbo.book b where b.code = ?) and site_id = ?";
-	// 	$stmt = mysqli_query($this->connect, $sql, array($quantity, $code, $site_id));
-	// 	return $stmt;
-	// }
+	function checkQuantity($code, $quantity) {
+		$sql = "SELECT
+					p.`code`
+				FROM
+					product p
+				WHERE
+					p.`code` = ?
+				AND p.quantity >= ?";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->bind_param('si', $code, $quantity);
+		$stmt->execute();
+		$total = $stmt->get_result()->fetch_assoc();
+		return $total;
+	}
+	function updateProduct($code, $quantity) {
+		$sql = "update product set quantity = quantity - ? where code = ?";
+		$stmt = $this->connect->prepare($sql);
+		$stmt->bind_param('is', $quantity, $code);
+		$stmt->execute();
+		return $stmt;
+	}
 }
 ?>

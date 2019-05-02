@@ -32,7 +32,7 @@
 							Thông tin giao hàng
 						</h2>
 						<?php if ($shipInfo != null) {?>
-						<div class="panel panel-default cart ship-info">
+						<div class="panel panel-default cart ship-info1">
 			                <div class="panel-body">
 			                    <div class="order">
 			                        <span class="title">Địa chỉ giao hàng</span>
@@ -56,7 +56,7 @@
 			            </div>
 			            <?php }?>
 
-			            <div class="panel panel-default cart <?php if ($shipInfo != null) {echo "ship-info an-hien";}?>">
+			            <div class="panel panel-default cart <?php if ($shipInfo != null) {echo "ship-info1 an-hien";}?>">
 			            <?php if (!isset($_SESSION['customer'])) {?>
 			            	<div class="row">
 			            		<a href="?mod=login&next-page=checkout">Đăng nhập nếu bạn đã là thành viên?</a>
@@ -340,12 +340,13 @@
 			}
 		}
 		$(document).on('click', '.edit1', function(){
-			$('.ship-info').toggleClass('an-hien');
+			$('.ship-info1').toggleClass('an-hien');
 		});
 		$(document).on('click', '#accept-order', function(){
+			var _data;
 			var check1 = 0;
 			if(customer_status === "0") {
-				$('.ship-info .form-control').not('textarea[name="note"]').each(function(){
+				$('.ship-info .form-control').not('textarea[name="note"]').each(function() {
 					if($(this).val() === '' || $(this).val() === null || $(this).val() === 'xx'){
 						$(this).next('span.note').html('<i>Trường bắt buộc!</i>');
 			 				check1 = 1;
@@ -359,8 +360,7 @@
 						} else
 		 					$(this).next('span.note').html('');
 		 			}
-				})
-
+				});
 			}
 			if (check1 === 0) {
 				if(localStorage.getItem('cart') === null){
@@ -381,19 +381,31 @@
 					if(check === 0){
 						var cart = localStorage.getItem('cart');
 						if(cart.length > 0){
+							if(customer_status === "0") {
+								_data = JSON.stringify({
+									'ship_info' : $('form.ship-info').serializeArray(),
+									'cart' : JSON.parse(cart)
+								})
+							} else {
+								_data = cart;
+							}
 							$.ajax({
 								url : '?mod=create-order&payment-type=' + paymentType,
 								method : 'post',
+								dataType: 'json',
 								contentType: 'application/json',
-				    			data: cart,
-				    			success : function(res) {
-				    				var r = JSON.parse(res);
+				    			data: _data,
+				    			success : function(r) {
 				    				if(r.status === true){
 				    					alert(r.title);
 				    					localStorage.setItem('cart', JSON.stringify([]));
-				    					window.location.replace('?mod=account');
+				    					//window.location.replace('?mod=account');
 				    				} else {
 				    					alert(r.title);
+				    					if(r.code === 'over_product') {
+				    						var product_code = r.product_code;
+				    						console.log(product_code);
+				    					}
 				    				}
 				    			}, error: function(err){console.log(err);}
 							})
