@@ -332,3 +332,7 @@ body.loading .modal1 {
 body.loading .modal1 {
     display: block;
 }
+.p-name-short{
+    height: 68px;
+    overflow: hidden;
+}

@@ -33,7 +33,8 @@
                                     <div class="product-info__availability pull-right">Trạng thái: <strong class="color"><?php echo $product['pst_name']; ?></strong></div>
                                 </div>
                                 <div class="product-info__title">
-                                    <h2><?php echo $product['name']; ?></h2>
+                                    <h2 class="p-name-short"><?php echo $product['name']; ?></h2>
+                                    <a class="view-name pull-right color" href="javascrip:void(0)">Xem thêm</a>
                                 </div>
                                 <div class="wrapper visible-xs">
                                     <div class="product-info__sku pull-left">Hãng: <strong><?php echo $product['b_name']; ?></strong></div>
@@ -475,5 +476,8 @@ for ($i = 0; $i < 5; $i++) {
                     });
 
                 }
+                $('.view-name').click(function(){
+                    $(this).parent().find('h2').toggleClass('p-name-short');
+                })
             })
         </script>
