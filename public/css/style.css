@@ -6598,6 +6598,7 @@ a.underline:hover {
   color: #777777;
 }
 .color-price-old {
+  text-decoration: line-through;
   color: #fa6b6b;
 }
 .color-price-old:hover {

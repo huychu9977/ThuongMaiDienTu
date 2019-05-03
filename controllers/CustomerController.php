@@ -115,15 +115,21 @@ class CustomerController {
 				if ($order_id) {
 					$list = "";
 					foreach ($data['cart'] as $key => $value) {
-						$this->customer->createOderDetail($order_id, $value['product']['id'], $value['quantity'], $value['product']['price']);
-						$this->product->updateProduct($value['product']['code'], $value['quantity']);
-						$list .= "<tr>
+						$pro1 = $this->product->findByCode($value['product']['code']);
+						if ($pro1) {
+							$pro1['sale_percent'] = $pro1['sale_percent'] == null ? 0 : $pro1['sale_percent'];
+							$product_sale = $pro1['price'] - $pro1['price'] * ($pro1['sale_percent'] / 100);
+							$list .= "<tr>
 									<td>" . ($key + 1) . "</td>
 									<td>" . $value['product']['name'] . "</td>
 									<td>" . $value['quantity'] . "</td>
-									<td>" . number_format($value['product']['price'], 0) . "&nbsp;₫</td>
-									<td>" . number_format($value['product']['price'] * $value['quantity'], 0) . "&nbsp;₫</td>
+									<td>" . number_format($product_sale, 0) . "&nbsp;₫</td>
+									<td>" . number_format($product_sale * $value['quantity'], 0) . "&nbsp;₫</td>
 								</tr>";
+							$this->customer->createOderDetail($order_id, $pro1['id'], $value['quantity'], $product_sale);
+							$this->product->updateProduct($pro1['code'], $value['quantity']);
+						}
+
 					}
 					$content = "<p>Họ tên: <b>" . $shipInfo['name'] . "</b></p>
 								<p>Số điện thoại: <b>" . $shipInfo['phone'] . "</b></p>
@@ -145,7 +151,7 @@ class CustomerController {
 										" . $list . "
 									</tbody>
 								</table>";
-					if (send_email('anhtran99xx@gmail.com', $shipInfo['name'], $content, 'Hóa đơn bán hàng')) {
+					if (send_email($shipInfo['email'], $shipInfo['name'], $content, 'Hóa đơn bán hàng')) {
 						echo json_encode([
 							'status' => true,
 							'title' => 'Thanh toán thành công! \n Một email đã gửi đến : ' . $shipInfo['email'],

@@ -129,11 +129,17 @@
             var cart = JSON.parse(localStorage.getItem('cart'));
             $('#open-cart .badge--cart').text(cart.length);
             $('.cart__total span').text('0 ');
+            $('.shopping-cart-table tbody').children().remove();
             if(cart.length > 0) {
-                $('.shopping-cart-table tbody').children().remove();
                 var total = 0;
                 cart.forEach(function(item) {
-                    total += item.product.price * item.quantity;
+                    item.product.sale_percent = item.product.sale_percent === null ? 0 : item.product.sale_percent;
+                    var price_sale = item.product.price - item.product.price * (item.product.sale_percent/100);
+                    total += price_sale * item.quantity;
+                    old_price = '';
+                    if(item.product.sale_percent !== 0){
+                        old_price += '<div class="unit-price color-price-old">' +fomatVND(item.product.price)+' </div>';
+                    }
                     $('.shopping-cart-table tbody').append(
                         '<tr>'
                             +'<td><div class="shopping-cart-table__product-image">'
@@ -142,12 +148,12 @@
                                         +'<img class="img-responsive" src="../upload/'+item.product.image+'" alt="">'
                                 +'</a></div></td>'
                             +'<td>'
-                                +'<h5 class="shopping-cart-table__product-name text-left text-uppercase">'
+                                +'<h5 class="shopping-cart-table__product-name text-left text-uppercase ">'
                                         +'<a href="?mod=detail&code='+item.product.code+'">'+item.product.name+'</a> </h5>'
                                 +'<ul class="shopping-cart-table__list-parameters">'
                                     +'<li class="visible-xs">'
                                         +'<span>Price:</span>'
-                                        +'<span class="price-mobile">'+fomatVND(item.product.price)+'</span>'
+                                        +'<span class="price-mobile">'+fomatVND(price_sale)+'</span>'
                                     +'</li>'
                                     +'<li class="visible-xs">'
                                         +'<span>Qty:</span>'
@@ -163,7 +169,8 @@
                             +'</td>'
                             +'<td>'
                                 +'<div class="shopping-cart-table__product-price unit-price">'
-                                    +fomatVND(item.product.price)+' </div>'
+                                    +fomatVND(price_sale)+' </div>'
+                                    +old_price
                             +'</td>'
                             +'<td>'
                                 +'<div class="shopping-cart-table__input">'
@@ -176,7 +183,7 @@
                             +' </td>'
                             +'<td>'
                                 +'<div class="shopping-cart-table__product-price subtotal">'
-                                    +fomatVND(item.product.price*item.quantity)+' </div>'
+                                    +fomatVND(price_sale*item.quantity)+' </div>'
                             +'</td>'
                             +'<td>'
                                 +'<a class="shopping-cart-table__delete icon icon-clear" href="javascript:void(0)"></a>'
@@ -186,7 +193,7 @@
                 });
                 $('.total-price1').text(fomatVND(total));
                 $('.total-price2').text(fomatVND(total));
-            }else{
+            } else {
                 $('.shopping-cart-table tbody').append('Giỏ hàng đang trống!');
             }
 

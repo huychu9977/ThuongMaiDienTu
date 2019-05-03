@@ -323,18 +323,25 @@
 				$('#cart-checkout-info .product').children().remove();
 				var total = 0;
 				cart.forEach(function(item) {
-					total += item.product.price * item.quantity;
+					item.product.sale_percent = item.product.sale_percent === null ? 0 : item.product.sale_percent;
+                    var price_sale = item.product.price - item.product.price * (item.product.sale_percent/100);
+                    total += price_sale * item.quantity;
+                    old_price = '';
+                    if(item.product.sale_percent !== 0){
+                        old_price += '<strong class="color-price-old">' +fomatVND(item.product.price)+' </strong>';
+                    }
 					$('#cart-checkout-info .product').append(
 						'<div class="item">'
 		                +'    <p class="title">'
 		                +'        <strong>'+item.quantity+' x</strong>'
-		                +'        <a href="?mod=detail&code='+item.product.code+'">'+item.product.name+'</a>'
+		                +'        <a class="p-name" href="?mod=detail&code='+item.product.code+'">'+item.product.name+'</a>'
 		                +'        <span class="seller-by"> Đơn giá: '
-		                +'        	<strong class="firm">'+fomatVND(item.product.price)+'</strong>'
+		                +'        	<strong class="firm">'+fomatVND(price_sale)+'</strong>'
+		                +old_price
 		                +'        </span>'
 		                +'   	</p>'
 						+'	<p class="price text-right">'
-		                +'        <span>'+fomatVND(item.product.price * item.quantity)+' </span>'
+		                +'        <span>'+fomatVND(price_sale * item.quantity)+' </span>'
 		                +'    </p>'
 		                +'</div>')
 				});

@@ -167,10 +167,13 @@
             $('#open-cart .badge--cart').text(cart.length);
             $('.cart__total span').text('0 ');
             if(cart.length > 0) {
+                $('.cart__bottom').show();
                 $('#cart-item').children().remove();
                 var total = 0;
                 cart.forEach(function(item) {
-                    total += item.product.price * item.quantity;
+                    item.product.sale_percent = item.product.sale_percent === null ? 0 : item.product.sale_percent;
+                    var price_sale = item.product.price - item.product.price * (item.product.sale_percent/100);
+                    total += price_sale * item.quantity;
                     $('#cart-item').append(
                         '<li class="cart__item">'
                             +'<div class="cart__item__image pull-left">'
@@ -182,9 +185,9 @@
                             +'</div>'
                             +'<div class="cart__item__info">'
                                 +'<div class="cart__item__info__title">'
-                                    +'<h2><a href="#">'+item.product.name+'</a></h2>'
+                                    +'<h2 class="p-name"><a href="#">'+item.product.name+'</a></h2>'
                                 +'</div>'
-                                +'<div class="cart__item__info__price"><span class="info-label">Price:</span><span>'+fomatVND(item.product.price)+'</span></div>'
+                                +'<div class="cart__item__info__price"><span class="info-label">Giá:</span><span>'+fomatVND(price_sale)+'</span></div>'
                                 +'<div class="cart__item__info__qty"><span class="info-label">Số lượng: </span>'
                                     +'<input type="text" class="input--ys" value="'+item.quantity+'" />'
                                 +'</div>'
@@ -195,6 +198,7 @@
                 $('.cart__total span').text(fomatVND(total));
             }else{
                 $('#cart-item').append('Giỏ hàng đang trống!');
+                $('.cart__bottom').hide();
             }
 
         }

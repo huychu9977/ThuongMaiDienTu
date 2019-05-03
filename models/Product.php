@@ -20,8 +20,9 @@ class Product {
 		return $data;
 	}
 	function findByCode($code) {
-		$sql = "select b.* from product b where b.code = ? ";
-
+		$sql = "select b.*, ps.sale_percent from product b
+				LEFT JOIN product_sale ps ON ps.product_id = b.id
+				where b.code = ? ";
 		$stmt = $this->connect->prepare($sql);
 		$stmt->bind_param('s', $code);
 		$stmt->execute();
