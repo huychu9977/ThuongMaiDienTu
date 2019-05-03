@@ -30,35 +30,43 @@ class Product {
 	}
 	function findDetailByCode($code) {
 		$sql = "SELECT
-				p.id,
-				p.`code`,
-				p.`name`,
-				p.quantity,
-				p.price,
-				p.description,
-				p.image,
-				p.created_date,
-				p.type_id,
-				t.`name` AS t_name,
-				b.`name` AS b_name,
-				pc.`name` AS pc_name,
-				pr.`name` AS pr_name,
-				pos.`name` AS pos_name,
-				pu.`name` AS pu_name,
-				pss.`name` AS pss_name,
-				pst.`name` AS pst_name
-			FROM
-				product p
-			LEFT JOIN product_type t ON t.id = p.type_id
-			LEFT JOIN product_branch b ON b.id = p.branch_id
-			LEFT JOIN product_color pc ON pc.id = p.color_id
-			LEFT JOIN product_ram pr ON pr.id = p.ram_id
-			LEFT JOIN product_operating_system pos ON pos.id = p.operating_system_id
-			LEFT JOIN product_cpu pu ON pu.id = p.cpu_id
-			LEFT JOIN product_screen_size pss ON pss.id = p.screen_size_id
-			LEFT JOIN product_status pst ON pst.id = p.status_id
-			WHERE
-				p.`code` = ?";
+					p.id,
+					p.`code`,
+					p.`name`,
+					p.quantity,
+					p.price,
+					p.description,
+					p.image,
+					p.created_date,
+					p.type_id,
+					t.`name` AS t_name,
+					b.`name` AS b_name,
+					pc.`name` AS pc_name,
+					pr.`name` AS pr_name,
+					pos.`name` AS pos_name,
+					pu.`name` AS pu_name,
+					pss.`name` AS pss_name,
+					pst.`name` AS pst_name,
+					cr.star_rate,
+					count(cr.star_rate) count
+				FROM
+					product p
+				LEFT JOIN product_type t ON t.id = p.type_id
+				LEFT JOIN product_branch b ON b.id = p.branch_id
+				LEFT JOIN product_color pc ON pc.id = p.color_id
+				LEFT JOIN product_ram pr ON pr.id = p.ram_id
+				LEFT JOIN product_operating_system pos ON pos.id = p.operating_system_id
+				LEFT JOIN product_cpu pu ON pu.id = p.cpu_id
+				LEFT JOIN product_screen_size pss ON pss.id = p.screen_size_id
+				LEFT JOIN product_status pst ON pst.id = p.status_id
+				LEFT JOIN customer_reviews cr ON cr.product_id = p.id
+				WHERE
+					p.`code` = ?
+				GROUP BY
+					cr.star_rate
+				ORDER BY
+					count DESC
+				LIMIT 1";
 		$stmt = $this->connect->prepare($sql);
 		$stmt->bind_param('s', $code);
 		$stmt->execute();
@@ -77,7 +85,36 @@ class Product {
 		return $data;
 	}
 	function findRecommend($typeId) {
-		$sql = "select p.* from product p where p.type_id = ?";
+		$sql = "SELECT
+					p.id,
+					p.image,
+					p.description,
+					p.name,
+					p.code,
+					p.price,
+					p.quantity,
+					rate.star_rate,
+					rate.count
+				FROM
+					product p
+				LEFT JOIN (
+					SELECT
+						cr.product_id,
+						cr.star_rate,
+						COUNT(cr.star_rate) count
+					FROM
+						customer_reviews cr
+					GROUP BY
+						cr.product_id,
+						cr.star_rate
+					ORDER BY
+						count,
+						cr.star_rate
+				) rate ON rate.product_id = p.id
+				WHERE
+					p.type_id = ?
+				GROUP BY
+					p.id";
 		$stmt = $this->connect->prepare($sql);
 		$stmt->bind_param('i', $typeId);
 		$stmt->execute();

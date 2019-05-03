@@ -41,8 +41,19 @@
                                 </div>
                                 <div class="price-box product-info__price"><span class="price-box__new"><?php echo number_format($product['price'], 0) . "&nbsp;₫"; ?></span> </div>
                                 <div class="product-info__review">
-                                    <div class="rating"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
-                                    <a href="#">1 Nhận xét(s)</a> <a href="#">Thêm nhận xét</a>
+                                    <div class="rating">
+                                        <?php
+for ($i = 0; $i < 5; $i++) {
+	if ($i < $product['star_rate']) {
+		echo '<span class="icon-star"></span> ';
+	} else {
+		echo '<span class="icon-star empty-star"></span> ';
+	}
+
+}
+?>
+                                    </div>
+                                    <a id="total-reviews" href="javascript:void(0);">1 Nhận xét(s)</a>
                                 </div>
                                 <div class="product-info__description hidden-xs">
                                     <table class="table table-params table-hover">
@@ -113,8 +124,8 @@
                         <div class="content">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs nav-tabs--ys1" role="tablist">
-                                <li class="active"><a href="#Tab1" role="tab" data-toggle="tab" class="text-uppercase">DESCRIPTION</a></li>
-                                <li><a href="#Tab2" role="tab" data-toggle="tab" class="text-uppercase">Reviews</a></li>
+                                <li class="active"><a href="#Tab1" role="tab" data-toggle="tab" class="text-uppercase">Thông tin</a></li>
+                                <li><a href="#Tab2" role="tab" data-toggle="tab" class="text-uppercase">Đánh giá</a></li>
 
                             </ul>
                             <!-- Tab panes -->
@@ -194,7 +205,8 @@
                 <!-- /title -->
                 <!-- carousel -->
                 <div class="carousel-products row" id="carouselRelated">
-                    <?php foreach ($productRecommend as $pr) {?>
+                    <?php foreach ($productRecommend as $pr) {
+	?>
 
                     <div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 col-xl-one-six">
                         <!-- product -->
@@ -232,7 +244,18 @@
                                     </div>
                                     <!-- /product info -->
                                     <!-- product rating -->
-                                    <div class="rating row-mode-hide"> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star"></span> <span class="icon-star empty-star"></span> </div>
+                                    <div class="rating row-mode-hide">
+                                        <?php
+for ($i = 0; $i < 5; $i++) {
+		if ($i < $pr['star_rate']) {
+			echo '<span class="icon-star"></span> ';
+		} else {
+			echo '<span class="icon-star empty-star"></span> ';
+		}
+
+	}
+	?>
+                                    </div>
                                     <!-- /product rating -->
                                 </div>
                             </div>
@@ -332,8 +355,14 @@
                         data : $(this).serialize(),
                         success : function(res) {
                             if(res) {
-                                if(JSON.parse(res) === true)
-                                    loadReviews();
+                                if(JSON.parse(res) === true) {
+                                    $('.contact-form').find('input[name="title"]').val('');
+                                    $('.contact-form').find('textarea[name="content"]').val('');
+                                    $('.rating-stars li').removeClass('selected');
+                                    loadReviews(1);
+                                } else {
+                                    console.log('Có lỗi xảy ra! _Thêm reivews');
+                                }
                             }
                         }
                     })
@@ -389,6 +418,7 @@
                                         +'        </div>'
                                         +'    </div>'
                                         +'</div>')
+                                    $('#total-reviews').text(total + ' nhận xét');
                                     $('.pagination-reviews ul').children().remove();
                                     for (var i = 1; i <= Math.ceil(total/3); i++) {
                                         var selected = '';

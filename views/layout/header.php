@@ -84,30 +84,6 @@
                             </span>
                             <ul class="image-links-level-3 megamenu__submenu">
                                 <li class="level3"><a href="listing.html">Blouses & Shirts</a></li>
-                                <li class="level3">
-                                    <span class="name">
-											<span class="expander">-</span>
-                                    <a href="listing.html"><span class="act-underline">Dresses</span></a>
-                                    </span>
-                                    <ul class="image-links-level-4 megamenu__submenu">
-                                        <li class="level4"><a href="listing.html">Bodycon Dresses</a></li>
-                                        <li class="level4">
-                                            <span class="name">
-													<span class="expander">-</span>
-                                            <a href="listing.html"><span class="act-underline">Midi Dresses</span></a>
-                                            </span>
-                                            <ul class="image-links-level-5 megamenu__submenu">
-                                                <li class="level5"><a href="listing.html">Occasion & Cocktail</a></li>
-                                                <li class="level5"><a href="listing.html">Casual Everyday</a></li>
-                                                <li class="level5"><a href="listing.html">Going Out & Party Dresses</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="level4"><a href="listing.html">Fit & Flare</a></li>
-                                        <li class="level4"><a href="listing.html">Shift Dresses</a></li>
-                                        <li class="level4"><a href="listing.html">Slip Dresses</a></li>
-                                        <li class="level4"><a href="listing.html">Tunic Dresses</a></li>
-                                    </ul>
-                                </li>
                                 <li class="level3"><a href="listing.html">Tops & T-shirts</a></li>
                                 <li class="level3"><a href="listing.html">Sleeveless Tops</a></li>
                                 <li class="level3"><a href="listing.html">Sweaters & Cardigans</a></li>
@@ -250,262 +226,99 @@
                                         <li class="dl-close"><a href="#"><span class="icon icon-close"></span>close</a></li>
                                         <li class="dropdown dropdown-mega-menu dropdown-two-col">
                                             <span class="dropdown-toggle extra-arrow"></span>
-                                            <a href="about.html" class="dropdown-toggle" data-toggle="dropdown"><span class="act-underline">PAGES</span></a>
+                                            <a href="about.html" class="dropdown-toggle" data-toggle="dropdown"><span class="act-underline">Thể loại</span></a>
                                             <ul class="dropdown-menu multicolumn two-col" role="menu">
                                                 <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                <li><a href="about.html">About</a></li>
-                                                <li><a href="support-24.html">Support 24/7 page</a></li>
-                                                <li><a href="services.html">Services</a></li>
-                                                <li><a href="faq.html">FAQs</a></li>
-                                                <li><a href="contact.html">Contact</a></li>
-                                                <li><a href="under-construction.html">Under Construction</a></li>
-                                                <li><a href="warranty.html">Warranty Page</a></li>
-                                                <li><a href="site-map.html">Site Map</a></li>
-                                                <li><a href="delivery-page.html">Delivery Page</a></li>
-                                                <li><a href="payment-page.html">Payment page</a></li>
-                                                <li><a href="typography.html">Typography</a></li>
-                                                <li><a href="page-404.html">Page 404</a></li>
-                                                <li><a href="_newsletter-template/newsletter-template.html">Newsletter template</a></li>
+                                                <?php
+include_once 'models/Product.php';
+$pro = new Product();
+$types = $pro->getProperties('type');
+foreach ($types as $value) {
+	?>
+                                                <li><a href="?mod=shop&type=<?=$value['code']?>"><?=$value['name']?></a></li>
+                                            <?php }?>
                                             </ul>
                                         </li>
                                         <li class="dropdown dropdown-mega-menu">
                                             <span class="dropdown-toggle extra-arrow"></span>
-                                            <a href="listing.html" class="dropdown-toggle" data-toggle="dropdown"><span class="act-underline">WOMEN’s<span class="badge badge--menu">NEW</span></span></a>
+                                            <a href="listing.html" class="dropdown-toggle" data-toggle="dropdown"><span class="act-underline">danh mục<span class="badge badge--menu">NEW</span></span></a>
                                             <ul class="dropdown-menu megamenu" role="menu">
                                                 <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
                                                 <li class="col-sm-3">
-                                                    <a href="listing.html" class="megamenu__subtitle"><span>TOPS</span></a>
+                                                    <a href="listing.html" class="megamenu__subtitle"><span>Hệ điều hành</span></a>
                                                     <ul class="megamenu__submenu">
                                                         <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Blouses & Shirts</a></li>
-                                                        <li class="level2">
-                                                            <a href="listing.html">Dresses</a>
-                                                            <ul class="megamenu__submenu">
-                                                                <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                                <li class="level3"><a href="listing.html">Bodycon Dresses</a></li>
-                                                                <li class="level3">
-                                                                    <a href="listing.html">Midi Dresses</a>
-                                                                    <ul class="megamenu__submenu">
-                                                                        <li class="dl-back"><a href="listing.html"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                                        <li class="level4"><a href="listing.html">Occasion & Cocktail</a></li>
-                                                                        <li class="level4"><a href="listing.html">Casual Everyday</a></li>
-                                                                        <li class="level4"><a href="listing.html">Going Out & Party Dresses</a></li>
-                                                                    </ul>
-                                                                </li>
-                                                                <li class="level3"><a href="listing.html">Fit & Flare</a></li>
-                                                                <li class="level3"><a href="listing.html">Shift Dresses</a></li>
-                                                                <li class="level3"><a href="listing.html">Shirt Dresses</a></li>
-                                                                <li class="level3"><a href="listing.html">Slip Dresses</a></li>
-                                                                <li class="level3"><a href="listing.html">Tunic Dresses</a></li>
-                                                            </ul>
-                                                        </li>
-                                                        <li class="level2"><a href="listing.html">Tops & T-shirts</a></li>
-                                                        <li class="level2"><a href="listing.html">Sleeveless Tops</a></li>
-                                                        <li class="level2"><a href="listing.html">Sweaters & Cardigans</a></li>
-                                                        <li class="level2"><a href="listing.html">Jackets</a></li>
-                                                        <li class="level2"><a href="listing.html">Outerwear</a></li>
+
+                                                        <?php
+include_once 'models/Product.php';
+$pro = new Product();
+$branchs = $pro->getProperties('branch');
+foreach ($branchs as $value) {
+	?>
+                                                <li class="level2"><a href="?mod=shop&branch=<?=$value['code']?>"><?=$value['name']?></a></li>
+                                            <?php }?>
                                                     </ul>
                                                 </li>
                                                 <li class="col-sm-3">
-                                                    <a href="listing.html" class="megamenu__subtitle"><span>BOTTOMS</span></a>
+                                                    <a href="listing.html" class="megamenu__subtitle"><span>Hệ điều hành</span></a>
                                                     <ul class="megamenu__submenu">
                                                         <li class="dl-back"><a href="listing.html"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Trousers</a></li>
-                                                        <li class="level2"><a href="listing.html">Jeans</a></li>
-                                                        <li class="level2"><a href="listing.html">Leggings</a></li>
-                                                        <li class="level2"><a href="listing.html">Jumpsuit & shorts</a></li>
-                                                        <li class="level2"><a href="listing.html">Skirts</a></li>
-                                                        <li class="level2"><a href="listing.html">Tights</a></li>
+                                                        <?php
+include_once 'models/Product.php';
+$pro = new Product();
+$operating_systems = $pro->getProperties('operating_system');
+foreach ($operating_systems as $value) {
+	?>
+                                                <li class="level2"><a href="?mod=shop&operating_system=<?=$value['code']?>"><?=$value['name']?></a></li>
+                                            <?php }?>
                                                     </ul>
                                                 </li>
                                                 <li class="col-sm-3">
-                                                    <a href="listing.html" class="megamenu__subtitle"><span>ACCESSORIES</span></a>
+                                                    <a href="listing.html" class="megamenu__subtitle"><span>Dòng cpu</span></a>
                                                     <ul class="megamenu__submenu">
                                                         <li class="dl-back"><a href="listing.html"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Jewellery</a></li>
-                                                        <li class="level2"><a href="listing.html">Hats</a></li>
-                                                        <li class="level2"><a href="listing.html">Scarves & snoods</a></li>
-                                                        <li class="level2"><a href="listing.html">Belts</a></li>
-                                                        <li class="level2"><a href="listing.html">Bags</a></li>
-                                                        <li class="level2"><a href="listing.html">Shoes</a></li>
-                                                        <li class="level2"><a href="listing.html">Sunglasses</a></li>
+                                                        <?php
+include_once 'models/Product.php';
+$pro = new Product();
+$cpus = $pro->getProperties('cpu');
+foreach ($cpus as $value) {
+	?>
+                                                <li class="level2"><a href="?mod=shop&cpu=<?=$value['code']?>"><?=$value['name']?></a></li>
+                                            <?php }?>
                                                     </ul>
                                                 </li>
                                                 <li class="col-sm-3 hidden-xs">
-                                                    <a href="listing.html" class="megamenu__subtitle"><span>FEATURED</span></a>
+                                                    <a href="listing.html" class="megamenu__subtitle"><span>Sản phẩm hot</span></a>
                                                     <!-- carousel -->
                                                     <div class="carousel-products" id="megaMenuCarousel1">
+                                                        <?php
+$product_hots = $pro->getProductHots();
+foreach ($product_hots as $p) {
+	?>
                                                         <div>
                                                             <!-- product -->
                                                             <div class="product">
                                                                 <div class="product__inside">
                                                                     <!-- product image -->
                                                                     <div class="product__inside__image">
-                                                                        <a href="product.html"> <img src="../upload/product-20.jpg" alt=""> </a>
+                                                                        <a href="product.html"> <img src="../upload/<?=$p['image'];?>" alt=""> </a>
                                                                     </div>
                                                                     <!-- /product image -->
                                                                     <!-- product name -->
                                                                     <div class="product__inside__name">
-                                                                        <h2><a href="product.html">Mauris lacinia lectus</a></h2>
+                                                                        <h2><a href="?mod=detail&code=<?=$p['code'];?>"><?=$p['name'];?></a></h2>
                                                                     </div>
                                                                     <!-- /product name -->
                                                                     <!-- product price -->
-                                                                    <div class="product__inside__price price-box">$77.00</div>
+                                                                    <div class="product__inside__price price-box"><?=number_format($p['price'], 0) . "&nbsp;₫";?></div>
                                                                     <!-- /product price -->
                                                                 </div>
                                                             </div>
                                                             <!-- /product -->
                                                         </div>
-                                                        <div>
-                                                            <!-- product -->
-                                                            <div class="product">
-                                                                <div class="product__inside">
-                                                                    <!-- product image -->
-                                                                    <div class="product__inside__image">
-                                                                        <a href="product.html"> <img src="../upload/product-2.jpg" alt=""> </a>
-                                                                    </div>
-                                                                    <!-- /product image -->
-                                                                    <!-- product name -->
-                                                                    <div class="product__inside__name">
-                                                                        <h2><a href="product.html">Mauris lacinia lectus</a></h2>
-                                                                    </div>
-                                                                    <!-- /product name -->
-                                                                    <!-- product price -->
-                                                                    <div class="product__inside__price price-box">$77.00</div>
-                                                                    <!-- /product price -->
-                                                                </div>
-                                                            </div>
-                                                            <!-- /product -->
-                                                        </div>
-                                                        <div>
-                                                            <!-- product -->
-                                                            <div class="product">
-                                                                <div class="product__inside">
-                                                                    <!-- product image -->
-                                                                    <div class="product__inside__image">
-                                                                        <a href="product.html"> <img src="../upload/product-4.jpg" alt=""> </a>
-
-                                                                    </div>
-                                                                    <!-- /product image -->
-                                                                    <!-- product name -->
-                                                                    <div class="product__inside__name">
-                                                                        <h2><a href="product.html">Mauris lacinia lectus</a></h2>
-                                                                    </div>
-                                                                    <!-- /product name -->
-                                                                    <!-- product price -->
-                                                                    <div class="product__inside__price price-box">$77.00</div>
-                                                                    <!-- /product price -->
-                                                                </div>
-                                                            </div>
-                                                            <!-- /product -->
-                                                        </div>
+                                                        <?php }?>
                                                     </div>
                                                     <!-- /carousel -->
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown dropdown-mega-menu">
-                                            <span class="dropdown-toggle extra-arrow"></span>
-                                            <a href="listing.html" class="dropdown-toggle" data-toggle="dropdown"><span class="act-underline">MEN’s<span class="badge badge--menu badge--color">SALE</span></span></a>
-                                            <ul class="dropdown-menu megamenu" role="menu">
-                                                <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                <li class="col-sm-3">
-                                                    <a href="listing.html" class="megamenu__subtitle">
-                                                        <span>TOPS</span>
-                                                        <span class="megamenu__category-image hidden-xs"><img class="img-responsive" src="public/images/custom/mens-category-1.jpg" alt=""/></span>
-                                                    </a>
-                                                    <ul class="megamenu__submenu megamenu__submenu--marked">
-                                                        <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Jackets</a></li>
-                                                        <li class="level2"><a href="listing.html">Shirts</a></li>
-                                                        <li class="level2"><a href="listing.html">Sweaters & Cardigans</a></li>
-                                                        <li class="level2"><a href="listing.html">T-shirts</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-sm-3">
-                                                    <a href="listing.html" class="megamenu__subtitle">
-                                                        <span>BOTTOMS</span>
-                                                        <span class="megamenu__category-image hidden-xs"><img class="img-responsive" src="public/images/custom/mens-category-2.jpg" alt=""/></span>
-                                                    </a>
-                                                    <ul class="megamenu__submenu megamenu__submenu--marked">
-                                                        <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Trousers</a></li>
-                                                        <li class="level2"><a href="listing.html">Jeans</a></li>
-                                                        <li class="level2"><a href="listing.html">Skirts</a></li>
-                                                        <li class="level2"><a href="listing.html">Swimwear</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-sm-3">
-                                                    <a href="#" class="megamenu__subtitle">
-                                                        <span>ACCESSORIES</span>
-                                                        <span class="megamenu__category-image hidden-xs"><img class="img-responsive" src="public/images/custom/mens-category-3.jpg" alt=""/></span>
-                                                    </a>
-                                                    <ul class="megamenu__submenu megamenu__submenu--marked">
-                                                        <li class="dl-back"><a href="#"><span class="icon icon-chevron_left"></span>back</a></li>
-                                                        <li class="level2"><a href="listing.html">Bags</a></li>
-                                                        <li class="level2"><a href="listing.html">Shoes</a></li>
-                                                        <li class="level2"><a href="listing.html">Sunglasses</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="col-sm-3 hidden-xs">
-                                                    <a href="listing.html" class="megamenu__subtitle"><span>Specials</span></a>
-                                                    <div class="vertical-carousel vertical-carousel-1 special-carousel">
-                                                        <div class="vertical-carousel__item">
-                                                            <div class="vertical-carousel__item__image pull-left">
-                                                                <a href="product.html"><img src="../upload/product-120x150-1.jpg" alt=""></a>
-                                                            </div>
-                                                            <div class="product__label product__label--sale"> <span>Sale</span></div>
-                                                            <div class="vertical-carousel__item__title">
-                                                                <h2><a href="product.html">Mauris lacinia lectus</a></h2>
-                                                            </div>
-                                                            <div class="price-box">$26.00 <span class="price-box__old">$28.00</span></div>
-                                                        </div>
-                                                        <div class="vertical-carousel__item">
-                                                            <div class="vertical-carousel__item__image pull-left">
-                                                                <a href="product.html"><img src="../upload/product-120x150-2.jpg" alt=""></a>
-                                                            </div>
-                                                            <div class="product__label product__label--sale"> <span>Sale</span></div>
-                                                            <div class="vertical-carousel__item__title">
-                                                                <h2><a href="product.html">Incididunt ut labore et dolore magna aliqua</a></h2>
-                                                            </div>
-                                                            <div class="price-box">$26.00 <span class="price-box__old">$28.00</span></div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="col-sm-12 hidden-xs">
-                                                    <div class="hor-line"></div>
-                                                    <ul class="list-inline brands-list">
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-01.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-03.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-02.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-05.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-04.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-06.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-07.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-08.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-09.png" alt=""></a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="#"><img src="public/images/custom/brand-10.png" alt=""></a>
-                                                        </li>
-                                                    </ul>
                                                 </li>
                                             </ul>
                                         </li>

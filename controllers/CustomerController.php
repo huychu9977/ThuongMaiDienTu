@@ -1,21 +1,27 @@
 <?php
 include_once 'models/Customer.php';
 include_once 'models/Product.php';
+include_once 'models/mail/mail.php';
 class CustomerController {
 	var $customer;
 	var $product;
+	var $mail_util;
 	function __construct() {
 		$this->customer = new Customer();
 		$this->product = new Product();
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 	}
 	function login($username, $password) {
-		if ($this->customer->login($username, md5($password)) == null) {
+		// if ($this->customer->login($username, md5($password)) == null) {
+		// 	echo json_encode(false);
+		// } else {
+		// 	$_SESSION['customer'] = $this->customer->login($username, md5($password));
+		// 	echo json_encode($this->customer->login($username, md5($password)));
+		// }
+		if (send_email('anhtran99xx@gmail.com', 'Chu Huy 1', 'hihi', 'Tiêu đề')) {
 			echo json_encode(false);
-		} else {
-			$_SESSION['customer'] = $this->customer->login($username, md5($password));
-			echo json_encode($this->customer->login($username, md5($password)));
 		}
+
 	}
 	function isValidEmail($email) {
 		return filter_var($email, FILTER_VALIDATE_EMAIL) !== false;
@@ -89,11 +95,12 @@ class CustomerController {
 							$this->customer->createOderDetail($order_id, $value['product']['id'], $value['quantity'], $value['product']['price']);
 							$this->product->updateProduct($value['product']['code'], $value['quantity']);
 						}
+						echo json_encode([
+							'status' => true,
+							'title' => 'Thanh toán thành công!',
+						]);
 					} else {}
-					echo json_encode([
-						'status' => true,
-						'title' => 'Thanh toán thành công!',
-					]);
+
 				}
 
 			} else {
@@ -124,14 +131,18 @@ class CustomerController {
 		]);
 	}
 	function addReview() {
-		$data = $_POST;
-		$data['customer_id'] = $_SESSION['customer']['id'];
-		$data['created_date'] = date('Y-m-d H:i:s');
-		if ($this->customer->addReview($data)) {
-			echo json_encode(true);
+		if (isset($_SESSION['customer'])) {
+			$data['customer_id'] = $_SESSION['customer']['id'];
+			$data['created_date'] = date('Y-m-d H:i:s');
+			if ($this->customer->addReview($data)) {
+				echo json_encode(true);
+			} else {
+				echo json_encode(false);
+			}
 		} else {
 			echo json_encode(false);
 		}
+
 	}
 	function logout() {
 		session_destroy();
