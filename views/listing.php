@@ -549,7 +549,7 @@ echo isset($prices) ? $prices[1] : 500;
                         window.location.replace('?mod=shop&name=' + keyword);
                 })
                 function replaceUrl(page) {
-                    debugger;
+
                     var url = '?mod=shop';
                     var keyword = $('#search-form').find('input[name="search"]').val().trim();
                     if(keyword !== '') {
@@ -558,11 +558,11 @@ echo isset($prices) ? $prices[1] : 500;
                     $('.simple-list').find('li.active').children().each(function() {
                         url += '&' + $(this).attr('slug-name') + '=' +$(this).attr('slug-code');
                     })
-                    if($('.sort-position').val() !== 'null') {
-                        url += '&sort=' + $('.sort-position').val();
+                    if($('.sort-position').last().val() !== 'null') {
+                        url += '&sort=' + $('.sort-position').last().val();
                     }
-                    if(parseInt($('.show-qty').val()) !== 12) {
-                        url += '&page_size=' + $('.show-qty').val();
+                    if(parseInt($('.show-qty').last().val()) !== 12) {
+                        url += '&page_size=' + $('.show-qty').last().val();
                     }
                     var minP = parseInt($('#priceMin').val());
                     var maxP = parseInt($('#priceMax').val());

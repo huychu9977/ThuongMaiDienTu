@@ -250,7 +250,7 @@ class Product {
 				ORDER BY
 					quantity DESC
 				LIMIT 0,
-				 5";
+				 4";
 		$stmt = $this->connect->prepare($sql);
 		$stmt->execute();
 		$result = $stmt->get_result();
