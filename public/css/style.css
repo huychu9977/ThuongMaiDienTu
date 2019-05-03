@@ -10788,6 +10788,9 @@ footer.layout-7 .footer-copyright .row {
     padding-bottom: 0;
     z-index: 10001;
   }
+  .product-listing:not(.row-view) .product.product--zoom:hover .p-name{
+    -webkit-line-clamp: unset;
+  }
   .product-listing:not(.row-view) .product.product--zoom:hover .product__inside,
   .carousel-products .product.product--zoom:hover .product__inside,
   .product-listing:not(.row-view) .product.product--zoom.hovered .product__inside,

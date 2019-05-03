@@ -14,7 +14,7 @@ function send_email($email_recive, $name, $contents, $subject) {
 	// 2 = Thông báo lỗi cả client và lỗi ở server
 	// To load the French version
 	$mail->setLanguage('vi', '/optional/path/to/language/directory/');
-	$mail->SMTPDebug = 1;
+	//$mail->SMTPDebug = 1;
 	$mail->SMTPOptions = array(
 		'ssl' => array(
 			'verify_peer' => false,
@@ -22,6 +22,7 @@ function send_email($email_recive, $name, $contents, $subject) {
 			'allow_self_signed' => true),
 	);
 	$mail->CharSet = "UTF-8";
+	$mail->IsHTML(true);
 	$mail->Debugoutput = "html"; // Lỗi trả về hiển thị với cấu trúc HTML
 	$mail->Host = "smtp.gmail.com"; //host smtp để gửi mail
 	$mail->Port = 587; // cổng để gửi mail
@@ -45,7 +46,6 @@ function send_email($email_recive, $name, $contents, $subject) {
 		echo "Có lỗi khi gửi mail: " . $mail->ErrorInfo;
 		return false;
 	} else {
-		echo "Đã gửi thư thành công!";
 		return true;
 	}
 }

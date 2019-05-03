@@ -150,6 +150,12 @@
 </html>
 <script>
     $(document).ready(function() {
+        $body = $("body");
+
+        $(document).on({
+            ajaxStart: function() { $body.addClass("loading");    },
+             ajaxStop: function() { $body.removeClass("loading"); }
+        });
         if(localStorage.getItem('cart') === null) {
             localStorage.setItem('cart', JSON.stringify([]));
         } else {

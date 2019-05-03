@@ -12,14 +12,11 @@ class CustomerController {
 		date_default_timezone_set('Asia/Ho_Chi_Minh');
 	}
 	function login($username, $password) {
-		// if ($this->customer->login($username, md5($password)) == null) {
-		// 	echo json_encode(false);
-		// } else {
-		// 	$_SESSION['customer'] = $this->customer->login($username, md5($password));
-		// 	echo json_encode($this->customer->login($username, md5($password)));
-		// }
-		if (send_email('anhtran99xx@gmail.com', 'Chu Huy 1', 'hihi', 'Tiêu đề')) {
+		if ($this->customer->login($username, md5($password)) == null) {
 			echo json_encode(false);
+		} else {
+			$_SESSION['customer'] = $this->customer->login($username, md5($password));
+			echo json_encode($this->customer->login($username, md5($password)));
 		}
 
 	}
@@ -64,6 +61,14 @@ class CustomerController {
 		$data = json_decode(file_get_contents('php://input'), true);
 		$check = 0;
 		$product_fail = array();
+		if (empty($data['cart'])) {
+			echo json_encode([
+				'status' => false,
+				'code' => 'empty_cart',
+				'title' => 'Giỏ hàng trống!',
+			]);
+			return;
+		}
 		foreach ($data['cart'] as $value) {
 			$code = $this->product->checkQuantity($value['product']['code'], $value['quantity']);
 			if ($code == null) {
@@ -82,27 +87,14 @@ class CustomerController {
 			]);
 			return;
 		} else {
+			$id_ship_info = null;
 			if (!isset($_SESSION['customer'])) {
-				$id_ship_info = $this->customer->insertShipInfo(null, $data['ship_info']);
-
-				if ($id_ship_info) {
-					$code = "HD_" . date('Ymdhis');
-					$createdDate = date('Y-m-d H:i:s');
-					$status = $_GET['payment-type'] == 'online' ? 3 : 1;
-					$order_id = $this->customer->createOder($code, $id_ship_info, $status, $createdDate);
-					if ($order_id) {
-						foreach ($data['cart'] as $key => $value) {
-							$this->customer->createOderDetail($order_id, $value['product']['id'], $value['quantity'], $value['product']['price']);
-							$this->product->updateProduct($value['product']['code'], $value['quantity']);
-						}
-						echo json_encode([
-							'status' => true,
-							'title' => 'Thanh toán thành công!',
-						]);
-					} else {}
-
+				$ship = array();
+				foreach ($data['ship_info'] as $key => $value) {
+					$ship[$value['name']] = $value['value'];
 				}
-
+				$id_ship_info = $this->customer->insertShipInfo(null, $ship);
+				$shipInfo = $this->customer->getShipInfoById($id_ship_info);
 			} else {
 				if ($this->customer->getShipInfo($_SESSION['customer']['id']) == null) {
 					echo json_encode([
@@ -111,7 +103,57 @@ class CustomerController {
 						'title' => 'Vui lòng cập nhật thông tin giao hàng!',
 					]);
 					return;
+				} else {
+					$shipInfo = $this->customer->getShipInfo($_SESSION['customer']['id']);
 				}
+			}
+			if ($shipInfo['id']) {
+				$code = "HD_" . date('Ymdhis');
+				$createdDate = date('Y-m-d H:i:s');
+				$status = $_GET['payment-type'] == 'online' ? 3 : 1;
+				$order_id = $this->customer->createOder($code, $shipInfo['id'], $status, $createdDate);
+				if ($order_id) {
+					$list = "";
+					foreach ($data['cart'] as $key => $value) {
+						$this->customer->createOderDetail($order_id, $value['product']['id'], $value['quantity'], $value['product']['price']);
+						$this->product->updateProduct($value['product']['code'], $value['quantity']);
+						$list .= "<tr>
+									<td>" . ($key + 1) . "</td>
+									<td>" . $value['product']['name'] . "</td>
+									<td>" . $value['quantity'] . "</td>
+									<td>" . number_format($value['product']['price'], 0) . "&nbsp;₫</td>
+									<td>" . number_format($value['product']['price'] * $value['quantity'], 0) . "&nbsp;₫</td>
+								</tr>";
+					}
+					$content = "<p>Họ tên: <b>" . $shipInfo['name'] . "</b></p>
+								<p>Số điện thoại: <b>" . $shipInfo['phone'] . "</b></p>
+								<p>Địa chỉ: <b>" . $shipInfo['v_name'] . ", " . $shipInfo['d_name'] . ", " . $shipInfo['c_name'] . "</b></p>
+								<p>Mã hóa đơn: <b>" . $code . "</b></p>
+								<p>Ngày tạo: <b>" . $createdDate . "</b></p>
+								<h3>Danh sách mua hàng</h3>
+								<table border='1'>
+									<thead>
+										<tr>
+											<td>STT</td>
+											<td>Tên sản phẩm</td>
+											<td>Số lượng</td>
+											<td>Giá</td>
+											<td>Thành tiền</td>
+										</tr>
+									</thead>
+									<tbody>
+										" . $list . "
+									</tbody>
+								</table>";
+					if (send_email('anhtran99xx@gmail.com', $shipInfo['name'], $content, 'Hóa đơn bán hàng')) {
+						echo json_encode([
+							'status' => true,
+							'title' => 'Thanh toán thành công! \n Một email đã gửi đến : ' . $shipInfo['email'],
+						]);
+					}
+
+				} else {}
+
 			}
 		}
 

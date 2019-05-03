@@ -29,6 +29,17 @@ class Customer {
 		$stmt->execute();
 		return $stmt;
 	}
+	function getShipInfoById($id) {
+		$sql = "select csi.*, md.`code` as d_code, mc.`code` as c_code, md.`name` as d_name, mc.`name` as c_name, mv.`name` as v_name from customer_ship_info csi
+				join map_village mv ON mv.`code` = csi.village_code
+				join map_district md ON md.`code` = mv.district_code
+				join map_city mc ON mc.`code` = md.city_code where id = ?";
+		$stmt = $this->cus->prepare($sql);
+		$stmt->bind_param('i', $id);
+		$stmt->execute();
+		$result = $stmt->get_result()->fetch_assoc();
+		return $result;
+	}
 	function getShipInfo($id) {
 		$sql = "select csi.*, md.`code` as d_code, mc.`code` as c_code, md.`name` as d_name, mc.`name` as c_name, mv.`name` as v_name from customer_ship_info csi
 				join map_village mv ON mv.`code` = csi.village_code
@@ -40,12 +51,8 @@ class Customer {
 		$result = $stmt->get_result()->fetch_assoc();
 		return $result;
 	}
-	function insertShipInfo($id, $data) {
+	function insertShipInfo($id, $ship) {
 
-		$ship = array();
-		foreach ($data as $key => $value) {
-			$ship[$value['name']] = $value['value'];
-		}
 		$sql = "insert into customer_ship_info (name, address, phone, note, email, village_code, customer_id) values(?,?,?,?,?,?,?)";
 		$stmt = $this->cus->prepare($sql);
 		$stmt->bind_param('ssssssi', $ship['name'], $ship['address'], $ship['phone'], $ship['note'], $ship['email'], $ship['village_code'], $id);

@@ -1,5 +1,5 @@
 <!-- include header -->
-<?php include('layout/header.php'); ?>
+<?php include 'layout/header.php';?>
     <!-- End HEADER section -->
     <!-- Slider section -->
     <div class="content offset-top-0" id="slider">
@@ -15,7 +15,7 @@
                 <ul>
 
                     <!-- SLIDE -1 -->
-                    <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide">
+                    <li data-transition="fade" data-slotamount="1" data-masterspeed="200" data-saveperformance="off" data-title="Slide">
                         <!-- MAIN IMAGE -->
                         <img src="public/images/slides/slide-4.jpg" alt="slide1" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                         <!-- LAYERS -->
@@ -29,7 +29,7 @@
                     </li>
                     <!-- /SLIDE -1 -->
                     <!-- SLIDE 2  -->
-                    <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide">
+                    <li data-transition="fade" data-slotamount="1" data-masterspeed="200" data-saveperformance="off" data-title="Slide">
                         <!-- MAIN IMAGE -->
                         <img src="public/images/slides/slide-2.jpg" alt="slide2" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                         <!-- LAYERS -->
@@ -43,7 +43,7 @@
                     </li>
                     <!-- /SLIDE 2  -->
                     <!-- SLIDE - 3 -->
-                    <li data-transition="fade" data-slotamount="1" data-masterspeed="1000" data-saveperformance="off" data-title="Slide">
+                    <li data-transition="fade" data-slotamount="1" data-masterspeed="200" data-saveperformance="off" data-title="Slide">
                         <img src="public/images/slides/04/intro_img_03.jpg" alt="slide3" data-bgposition="center center" data-bgfit="cover" data-bgrepeat="no-repeat">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption tp-fade fadeout fullscreenvideo" data-x="0" data-y="0" data-speed="1000" data-start="1100" data-easing="Power4.easeOut" data-endspeed="1500" data-endeasing="Power4.easeIn" data-autoplay="true" data-autoplayonlyfirsttime="false" data-nextslideatend="true" data-forceCover="1" data-dottedoverlay="twoxtwo" data-aspectratio="16:9" data-forcerewind="on" style="z-index: 2">
@@ -1395,7 +1395,7 @@
     </div>
     <!-- End CONTENT section -->
     <!-- FOOTER section -->
-    <?php include('layout/footer.php'); ?>
+    <?php include 'layout/footer.php';?>
             <!-- jQuery 1.10.1-->
 <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
 <!-- Bootstrap 3-->
@@ -1435,7 +1435,7 @@
             </div>
         </div>
         <!-- /modalAddToCart -->
-        
+
 
         <!-- Modal (quickViewModal) -->
         <div class="modal  modal--bg fade" id="quickViewModal">

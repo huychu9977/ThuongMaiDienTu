@@ -24,24 +24,34 @@
                     <a href="#" class="slide-column-close visible-sm visible-xs"><span class="icon icon-chevron_left"></span>back</a>
                     <div class="filters-block visible-xs">
                         <div class="filters-row__select">
-                            <label>Sort by: </label>
+                            <label>Sắp xếp: </label>
                             <div class="select-wrapper">
-                                <select class="select--ys">
-                                    <option>Position</option>
-                                    <option>Price</option>
-                                    <option>Rating</option>
-                                </select>
+                               <select class="select--ys sort-position">
+                                        <option value="null">--Mặc định--</option>
+                                        <option <?php if ($sort == 'name') {
+	echo "selected";
+}
+?> value="name">Tên</option>
+                                        <option <?php if ($sort == 'price') {
+	echo "selected";
+}
+?> value="price">Giá</option>
+                                    </select>
                             </div>
-                            <a href="#" class="sort-direction icon icon-arrow_back"></a>
                         </div>
                         <div class="filters-row__select">
-                            <label>Show: </label>
+                            <label>Hiển thị: </label>
                             <div class="select-wrapper">
-                                <select class="select--ys">
-                                    <option>25</option>
-                                    <option>50</option>
-                                    <option>100</option>
-                                </select>
+                               <select class="select--ys show-qty">
+                                        <option <?php if ($page_size == 12) {
+	echo "selected";
+}
+?> value="12">12</option>
+                                        <option <?php if ($page_size == 24) {
+	echo "selected";
+}
+?> value="24">24</option>
+                                    </select>
                             </div>
                         </div>
                         <a href="#" class="icon icon-arrow-down active"></a>
@@ -69,7 +79,7 @@
                                 </li>
                             <?php }}?>
                             </ul>
-                            <a href="?mod=shop" class="btn btn--ys btn--sm btn--light">Clear All</a>
+                            <a href="?mod=shop" class="btn btn--ys btn--sm btn--light">Xóa </a>
                         </div>
                     </div>
                     <!-- /shopping by block -->
@@ -81,12 +91,12 @@
                             <div id="priceSlider" class="price-slider"></div>
                             <form action="#">
                                 <div class="price-input">
-                                    <label>From:</label>
+                                    <label>Từ:</label>
                                     <input type="text" id="priceMin" value="<?php echo $prices[0] . '.00'; ?>" />
                                 </div>
                                 <div class="price-input-divider">-</div>
                                 <div class="price-input">
-                                    <label>To:</label>
+                                    <label>Đến:</label>
                                     <input type="text" id="priceMax" value="<?php echo $prices[1] . '.00'; ?>"/>
                                 </div>
                                 <div class="price-input">
@@ -159,32 +169,31 @@ if (isset($_GET[$c['code']])) {
                     <div class="filters-row">
                         <div class="pull-left">
                             <div class="filters-row__mode">
-                                <a href="#" class="btn btn--ys slide-column-open visible-xs visible-sm hidden-xl hidden-lg hidden-md">Filter</a>
+                                <a href="#" class="btn btn--ys slide-column-open visible-xs visible-sm hidden-xl hidden-lg hidden-md">Lọc</a>
                                 <a class="filters-row__view active link-grid-view btn-img btn-img-view_module"><span></span></a>
                                 <a class="filters-row__view link-row-view btn-img btn-img-view_list"><span></span></a>
                             </div>
                             <div class="filters-row__select hidden-sm hidden-xs">
-                                <label>Sort by: </label>
+                                <label>Sắp xếp: </label>
                                 <div class="select-wrapper">
                                     <select class="select--ys sort-position">
-                                        <option value="null">Defult</option>
+                                        <option value="null">---</option>
                                         <option <?php if ($sort == 'name') {
 	echo "selected";
 }
-?> value="name">Name</option>
+?> value="name">Tên</option>
                                         <option <?php if ($sort == 'price') {
 	echo "selected";
 }
-?> value="price">Price</option>
+?> value="price">Giá</option>
                                     </select>
                                 </div>
-                                <a href="#" class="sort-direction icon icon-arrow_back"></a>
                             </div>
                         </div>
                         <div class="pull-right">
                             <!-- <div class="filters-row__items hidden-sm hidden-xs"><?php echo $total; ?> Item(s)</div> -->
                             <div class="filters-row__select hidden-sm hidden-xs">
-                                <label>Show: </label>
+                                <label>Hiển thị: </label>
                                 <div class="select-wrapper">
                                     <select class="select--ys show-qty">
                                         <option <?php if ($page_size == 12) {

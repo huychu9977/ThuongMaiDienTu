@@ -1,7 +1,5 @@
 $j(document).ready(function() {
 			
-				
-			
 				// Init All Carousel			
 				 
 				productCarousel($j('#carouselNew'),2,2,3,2,1);

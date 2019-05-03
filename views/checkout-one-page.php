@@ -282,6 +282,7 @@
 		<!-- End CONTENT section -->
 		 <!-- FOOTER section -->
     <?php include 'layout/footer.php';?>
+    <div class="modal1"><!-- Place at bottom of page --></div>
         <!-- END FOOTER section -->
         <!-- jQuery 1.10.1-->
 <script src="public/external/jquery/jquery-2.1.4.min.js"></script>
@@ -298,6 +299,7 @@
         </script>
 <script>
 	$(document).ready(function () {
+
 		if(localStorage.getItem('cart') === null){
 			localStorage.setItem('cart', JSON.stringify([]));
 		} else {
@@ -387,7 +389,10 @@
 									'cart' : JSON.parse(cart)
 								})
 							} else {
-								_data = cart;
+								_data = JSON.stringify({
+									'ship_info' : null,
+									'cart' : JSON.parse(cart)
+								})
 							}
 							$.ajax({
 								url : '?mod=create-order&payment-type=' + paymentType,
@@ -399,12 +404,19 @@
 				    				if(r.status === true){
 				    					alert(r.title);
 				    					localStorage.setItem('cart', JSON.stringify([]));
-				    					//window.location.replace('?mod=account');
+				    					if(customer_status === "0") {
+				    						window.location.replace('?mod=shop');
+				    					} else {
+				    						window.location.replace('?mod=account');
+				    					}
 				    				} else {
 				    					alert(r.title);
 				    					if(r.code === 'over_product') {
 				    						var product_code = r.product_code;
 				    						console.log(product_code);
+				    					}
+				    					if(r.code === 'empty_cart') {
+				    						window.location.replace('?mod=empty-cart');
 				    					}
 				    				}
 				    			}, error: function(err){console.log(err);}
