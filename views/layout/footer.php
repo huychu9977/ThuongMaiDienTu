@@ -166,9 +166,9 @@
             var cart = JSON.parse(localStorage.getItem('cart'));
             $('#open-cart .badge--cart').text(cart.length);
             $('.cart__total span').text('0 ');
+            $('#cart-item').children().remove();
             if(cart.length > 0) {
                 $('.cart__bottom').show();
-                $('#cart-item').children().remove();
                 var total = 0;
                 cart.forEach(function(item) {
                     item.product.sale_percent = item.product.sale_percent === null ? 0 : item.product.sale_percent;

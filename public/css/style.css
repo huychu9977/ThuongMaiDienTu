@@ -10505,6 +10505,7 @@ footer.layout-7 .footer-copyright .row {
 .product__inside__image img {
   width: 100%;
 }
+
 .product__inside .rating {
   margin: 0 0 15px;
 }
@@ -10656,6 +10657,10 @@ footer.layout-7 .footer-copyright .row {
   .product.product--zoom.hovered .product__label--right {
     margin-right: -50px;
   }
+/*.product.product--zoom:hover img{
+  width: 200%;
+}*/
+
 }
 @media (min-width: 768px) {
   .product-listing.row-view .product.product--zoom:hover .product__label--left,

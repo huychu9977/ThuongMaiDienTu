@@ -69,7 +69,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="email">Email <sup>*</sup></label>
-                                <input type="email" name="email" class="form-control" id="email">
+                                <input type="email" name="email" class="form-control" id="email" required="">
                             </div>
                             <p class="note" id="error-register"> <i></i> </p>
                             <div class="form-group">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone">Số điện thoại </label>
-                                <input type="text" name="phone" class="form-control" id="phone">
+                                <input type="tel" pattern="[0][9|3][0-9]{8}" name="phone" class="form-control" id="phone">
                             </div>
 
                             <div class="form-group">

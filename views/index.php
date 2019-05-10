@@ -62,7 +62,7 @@
                                         <div class="product__inside__image">
                                             <a href="?mod=detail&code=<?php echo $value['code']; ?>"> <img src="../upload/<?=$value['image']?>" alt=""> </a>
                                             <!-- quick-view -->
-                                            <a href="#" data-toggle="modal" data-target="#quickViewModal" class="quick-view"><b><span class="icon icon-visibility"></span>xem qua</b> </a>
+                                            <a slug-code="<?php echo $value['code']; ?>" href="javascript:void(0)" class="quick-view-detail quick-view"><b><span class="icon icon-visibility"></span> Xem ngay</b> </a>
                                             <!-- /quick-view -->
                                         </div>
                                         <!-- /product image -->
@@ -88,10 +88,14 @@
                                         <div class="product__inside__hover">
                                             <!-- product info -->
                                             <div class="product__inside__info">
-                                                <div class="product__inside__info__btns"> <a href="#" class="btn btn--ys btn--xl"><span class="icon icon-shopping_basket"></span> Thêm vào gi?</a>
+                                                <div class="product__inside__info__btns">
+                                                    <a href="javascript:void(0)" slug-code="<?php echo $value['code']; ?>" class="btn btn--ys btn--xl add-to-cart">
+                                                    <span class="icon icon-shopping_basket"></span> Thêm vào giỏ
+                                                </a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-favorite_border"></span></a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-sort"></span></a>
-                                                    <a href="#" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="icon icon-visibility"></span>xem qua</a> </div>
+                                                    <a slug-code="<?php echo $value['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="quick-view-detail icon icon-visibility"></span> Xem ngay</a>
+                                                </div>
                                                 <ul class="product__inside__info__link hidden-xs">
                                                     <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Thêm vào ua thích</span></a></li>
                                                     <li class="text-left"><span class="icon icon-sort  tooltip-link"></span><a href="#" class="compare-link"><span class="text">Thêm d? so sánh</span></a></li>
@@ -204,12 +208,12 @@
                                         <div class="product__inside__image">
                                             <a href="?mod=detail&code=<?php echo $value['code']; ?>"> <img src="../upload/<?php echo $value['image'] ?>"></a>
                                             <!-- quick-view -->
-                                            <a href="#" data-toggle="modal" data-target="#quickViewModal" class="quick-view"><b><span class="icon icon-visibility"></span>Xem qua</b> </a>
+                                            <a slug-code="<?php echo $value['code']; ?>" href="javascript:void(0)" class="quick-view-detail quick-view"><b><span class="icon icon-visibility"></span> Xem ngay</b> </a>
                                             <!-- /quick-view -->
                                         </div>
                                         <!-- /product image -->
                                         <!-- label news -->
-                                        <div class="product__label product__label--right product__label--new"> <span>M?i</span> </div>
+                                        <div class="product__label product__label--right product__label--new"> <span>Mới</span> </div>
                                         <!-- /label news -->
                                         <!-- product name -->
                                         <div class="product__inside__name">
@@ -222,10 +226,13 @@
                                         <div class="product__inside__hover">
                                             <!-- product info -->
                                             <div class="product__inside__info">
-                                                <div class="product__inside__info__btns"> <a href="#" class="btn btn--ys btn--xl"><span class="icon icon-shopping_basket"></span> Thêm vào giỏ hàng</a>
+                                                <div class="product__inside__info__btns"> <a href="javascript:void(0)" slug-code="<?php echo $value['code']; ?>" class="btn btn--ys btn--xl add-to-cart">
+                                                    <span class="icon icon-shopping_basket"></span> Thêm vào giỏ
+                                                </a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-favorite_border"></span></a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-sort"></span></a>
-                                                    <a href="#" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="icon icon-visibility"></span>Xem qua</a> </div>
+                                                    <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="quick-view-detail icon icon-visibility"></span> Xem ngay</a>
+                                                </div>
                                                 <ul class="product__inside__info__link hidden-xs">
                                                     <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Thêm vào uu thích</span></a></li>
                                                     <li class="text-left"><span class="icon icon-sort  tooltip-link"></span><a href="#" class="compare-link"><span class="text">Thêm dể so sánh</span></a></li>
@@ -285,7 +292,7 @@
                                         <div class="product__inside__image">
                                             <a href="?mod=detail&code=<?php echo $value['code']; ?>"> <img src="../upload/<?php echo $value['image'] ?>"> </a>
                                             <!-- quick-view -->
-                                            <a href="#" data-toggle="modal" data-target="#quickViewModal" class="quick-view"><b><span class="icon icon-visibility"></span> Xem nhanh</b> </a>
+                                            <a slug-code="<?php echo $value['code']; ?>" href="javascript:void(0)" class="quick-view-detail quick-view"><b><span class="icon icon-visibility"></span> Xem ngay</b> </a>
                                             <!-- /quick-view -->
                                         </div>
                                         <!-- /product image -->
@@ -308,10 +315,14 @@
                                         <div class="product__inside__hover">
                                             <!-- product info -->
                                             <div class="product__inside__info">
-                                                <div class="product__inside__info__btns"> <a href="#" class="btn btn--ys btn--xl"><span class="icon icon-shopping_basket"></span> Thêm vào giỏ</a>
+                                                <div class="product__inside__info__btns">
+                                                    <a href="javascript:void(0)" slug-code="<?php echo $value['code']; ?>" class="btn btn--ys btn--xl add-to-cart">
+                                                    <span class="icon icon-shopping_basket"></span> Thêm vào giỏ
+                                                </a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-favorite_border"></span></a>
                                                     <a href="#" class="btn btn--ys btn--xl visible-xs"><span class="icon icon-sort"></span></a>
-                                                    <a href="#" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="icon icon-visibility"></span> Quick view</a> </div>
+                                                    <a slug-code="<?php echo $p['code']; ?>" href="javascript:void(0)" class="btn btn--ys btn--xl  row-mode-visible hidden-xs"><span class="quick-view-detail icon icon-visibility"></span> Xem ngay</a>
+                                                </div>
                                                 <ul class="product__inside__info__link hidden-xs">
                                                     <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Add to wishlist</span></a></li>
                                                     <li class="text-left"><span class="icon icon-sort  tooltip-link"></span><a href="#" class="compare-link"><span class="text">Add to compare</span></a></li>
@@ -384,7 +395,7 @@
                         </a>
                         <!-- /slide-->
                         <!-- slide-->
-                        <!-- thêm slider m?u sp m?i-->
+                        <!-- thêm slider m?u sp Mới-->
                         <a href="blog-post-right-column.html" class="link-hover-block">
                             <div class="slider-blog__item">
                                 <div class="row">
@@ -447,7 +458,7 @@
                                     </div>
                                     <div class="col-lg-12 col-xl-6">
                                         <div class="recent-post-box__text">
-                                            <h4 style="font-size: unset;" class="p-name"><a href="blog-post-right-column.html"><?php echo $value['name']; ?></a></h4>
+                                            <h4 style="font-size: unset;" class="p-name"><a href="?mod=detail&code=<?=$value['code']?>"><?php echo $value['name']; ?></a></h4>
                                             <div class="author">by <b>Admin</b></div>
 
                                             <a class="link-commet" href="blog-post-right-column.html"><span class="icon icon-message "></span><span class="number">0</span> comment(s)</a>
@@ -581,15 +592,13 @@
                         </div>
                     </div>
                     <div class="modal-footer text-center">
-                        <a href="shopping-cart-right-column.html" class="btn btn--ys btn--full btn--lg">go to cart</a>
+                        <a href="?mod=cart" class="btn btn--ys btn--full btn--lg">Xem giỏ hàng</a>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /modalAddToCart -->
-
-
-        <!-- Modal (quickViewModal) -->
+<!-- Modal (quickViewModal) -->
         <div class="modal  modal--bg fade" id="quickViewModal">
             <div class="modal-dialog white-modal">
                 <div class="modal-content container">
@@ -603,59 +612,62 @@
                                 <div class="row product-info-outer">
                                     <div class="col-xs-12 col-sm-5 col-md-6 col-lg-6">
                                         <div class="product-main-image">
-                                            <div class="product-main-image__item"><img src='../upload/product-big-1.jpg' alt="" /></div>
+                                            <div class="product-main-image__item pro_image"><img src='../upload/product-big-1.jpg' alt="" /></div>
                                         </div>
                                     </div>
                                     <div class="product-info col-xs-12 col-sm-7 col-md-6 col-lg-6">
                                         <div class="wrapper">
-                                            <div class="product-info__sku pull-left">SKU: <strong>mtk012c</strong></div>
-                                            <div class="product-info__availabilitu pull-right">Availability: <strong class="color">In Stock</strong></div>
+                                            <div class="product-info__sku pull-left">Hãng : <strong class="pro_b_name"></strong></div>
+                                            <div class="product-info__availabilitu pull-right">Trạng thái:
+                                                <strong class="color pro_pst_name"></strong></div>
                                         </div>
-                                        <div class="product-info__title">
-                                            <h2>Lorem ipsum dolor sit ctetur</h2>
+                                        <div class="product-info__title" >
+                                            <h2 class="pro_name">Lorem ipsum dolor sit ctetur</h2>
                                         </div>
-                                        <div class="price-box product-info__price"><span class="price-box__new">$65.00</span> <span class="price-box__old">$84.00</span></div>
-                                        <div class="divider divider--xs product-info__divider"></div>
                                         <div class="product-info__description">
-                                            <div class="product-info__description__brand"><img src="public/images/custom/brand.png" alt=""> </div>
-                                            <div class="product-info__description__text">Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                            <table class="table table-params table-hover">
+                                                <tbody>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Đơn giá</span></td>
+                                                        <td class="pro_price"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Màu</span></td>
+                                                        <td class="pro_pc_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Thể loại</span></td>
+                                                        <td class="pro_t_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">RAM</span></td>
+                                                        <td class="pro_pr_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Hệ điều hành</span></td>
+                                                        <td class="pro_pos_name"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="text-right"><span class="color">Dòng CPU</span></td>
+                                                        <td class="pro_pu_name"></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="divider divider--xs product-info__divider"></div>
-                                        <div class="wrapper">
-                                            <div class="pull-left"><span class="option-label">COLOR:</span> Red + $10.00 *</div>
-                                            <div class="pull-right required">* Required Fields</div>
-                                        </div>
-                                        <ul class="options-swatch options-swatch--color options-swatch--lg">
-                                            <li><a href="#"><span class="swatch-label"><img src="public/images/colors/oldlace.png" alt=""/></span></a></li>
-                                            <li><a href="#"><span class="swatch-label"><img src="public/images/colors/dark-grey.png" alt=""/></span></a></li>
-                                            <li><a href="#"><span class="swatch-label"><img src="public/images/colors/grey.png" alt=""/></span></a></li>
-                                            <li><a href="#"><span class="swatch-label"><img src="public/images/colors/light-grey.png" alt=""/></span></a></li>
-                                        </ul>
-                                        <div class="wrapper">
-                                            <div class="pull-left"><span class="option-label">SIZE:</span></div>
-                                            <div class="pull-left required">*</div>
-                                        </div>
-                                        <ul class="options-swatch options-swatch--size options-swatch--lg">
-                                            <li><a href="#">S</a></li>
-                                            <li><a href="#">M</a></li>
-                                            <li><a href="#">L</a></li>
-                                            <li><a href="#">XL</a></li>
-                                            <li><a href="#">2XL</a></li>
-                                            <li><a href="#">3XL</a></li>
-                                        </ul>
                                         <div class="divider divider--sm"></div>
                                         <div class="wrapper">
-                                            <div class="pull-left"><span class="qty-label">QTY:</span></div>
+                                            <div class="pull-left"><span class="qty-label">Số lượng:</span></div>
                                             <div class="pull-left">
-                                                <input type="text" name="quantity" class="input--ys qty-input pull-left" value="1">
+                                                <input type="number" min="1" name="quantity" class="input--ys qty-input pull-left" value="1">
                                             </div>
                                             <div class="pull-left">
-                                                <button type="submit" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span>Thêm vào gi?</button>
+                                                <button slug-code="" type="button" id="add-to-cart-modal" class="btn btn--ys btn--xxl"><span class="icon icon-shopping_basket"></span>Thêm vào giỏ</button>
                                             </div>
                                         </div>
                                         <ul class="product-link">
-                                            <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Thêm vào danh sách thích</span></a></li>
-                                            <li class="text-left"><span class="icon icon-sort  tooltip-link"></span><a href="#"><span class="text">Thêm vào so sánh</span></a></li>
+                                            <li class="text-right"><span class="icon icon-favorite_border  tooltip-link"></span><a href="#"><span class="text">Add to wishlist</span></a></li>
+                                            <li class="text-left"><span class="icon icon-sort  tooltip-link"></span><a href="#"><span class="text">Add to compare</span></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -667,8 +679,97 @@
             </div>
         </div>
         <!-- / Modal (quickViewModal) -->
+
         <!-- Modal (newsletter) -->
 
         <!-- Custom -->
         <script src="public/js/custom.js"></script>
         <script src="public/js/js-index-01.js"></script>
+<script>
+    $(document).ready(function () {
+        $(document).on('click', '.add-to-cart', function() {
+                    addToCart($(this).attr('slug-code'), 1);
+                })
+        function addToCart(code, quantity) {
+                    $.ajax({
+                        url : '?mod=find-by-code&code=' + code,
+                        method : 'get',
+                        success : function(res) {
+                            if(res) {
+                                var product = JSON.parse(res);
+                                if(parseInt(product.quantity) > quantity) {
+                                    var cart = JSON.parse(localStorage.getItem('cart'));
+                                    var check = 0;
+                                    cart.forEach(function(item){
+                                        if(item.product.code === product.code) {
+                                            item.quantity += quantity;
+                                            if(parseInt(product.quantity) < item.quantity){
+                                                item.quantity -= quantity;
+                                                alert('Bạn đã có '+item.quantity+' sp trong giỏ! \nChỉ có thể mua thêm tối đa ' +(product.quantity - item.quantity)+ ' sản phẩm!');
+                                                check = 2;
+                                            } else
+                                                check = 1;
+                                        }
+                                    });
+                                    if (check === 0) {
+                                        cart.push({
+                                            "product" : product,
+                                            "quantity" : quantity
+                                        });
+                                        $('#open-cart .badge--cart').text(cart.length);
+                                    }
+                                    if(check !== 2){
+                                        localStorage.setItem('cart', JSON.stringify(cart));
+                                        $("#cart-product-name").text(product.name);
+                                        $('#modalAddToCart').modal('show');
+                                    }
+
+                                } else {
+                                    alert('Chỉ có thể mua tối đa ' +product.quantity+ ' sản phẩm!');
+                                }
+                            }
+                        },
+                        error : function(err) {
+                            console.log(err);
+                        }
+                    })
+                }
+                $(document).on('click', '.quick-view-detail', function(){
+                    findDetailByCode($(this).attr('slug-code'));
+                });
+                function findDetailByCode(code) {
+                    $('#add-to-cart-modal').parents('.product-info').find('input[name="quantity"]').val(1);
+                    $.ajax({
+                        url : '?mod=find-detail-by-code&code=' + code,
+                        method : 'get',
+                        success : function(res) {
+                            if(res) {
+                                var product = JSON.parse(res);
+                                // $('#quickViewModal')
+                                for (var key in product) {
+                                    if (product.hasOwnProperty(key)) {
+                                        if(key === 'image'){
+                                            $('.pro_image img').attr('src', '../upload/' + product[key]);
+                                        } else if (key === 'code'){
+                                            $('#add-to-cart-modal').attr('slug-code', product[key]);
+                                        } else if (key === 'quantity'){
+                                            $('#add-to-cart-modal').parents('.product-info').find('input[name="quantity"]').attr('max', product[key]);
+                                        } else if (key === 'price'){
+                                            $('.pro_' + key).text(fomatVND(product[key]));
+                                        } else
+                                            $('.pro_' + key).text(product[key]);
+                                    }
+                                }
+                                $('#quickViewModal').modal('show');
+                            }
+                        },
+                        error : function(err) {
+                            console.log(err);
+                        }
+                    })
+                }
+                function fomatVND(input) {
+                    return input.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});
+                }
+    })
+</script>

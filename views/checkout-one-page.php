@@ -73,7 +73,7 @@
 											</div>
 											<div class="form-group">
 											    <label for="checkoutFormCompany">Số điện thoại<sup>*</sup></label>
-											    <input type="text" name="phone" value="<?php echo $shipInfo['phone']; ?>" class="form-control" id="checkoutFormCompany" required="">
+											    <input type="tel" pattern="[0][9|3][0-9]{8}" name="phone" value="<?php echo $shipInfo['phone']; ?>" class="form-control" id="checkoutFormCompany" required="">
 											    <span class="note"></span>
 											</div>
 										</div>
@@ -366,7 +366,15 @@
 								check1 = 1;
 							} else
 		 						$(this).next('span.note').html('');
-						} else
+						}
+						else if($(this).context.name === 'phone') {
+							if(!isValidPhone($(this).val())) {
+								$(this).next('span.note').html('<i>Nhập đúng định dạng!</i>');
+								check1 = 1;
+							} else
+		 						$(this).next('span.note').html('');
+						}
+						else
 		 					$(this).next('span.note').html('');
 		 			}
 				});
@@ -438,6 +446,10 @@
 		function isValidEmailAddress(emailAddress) {
 		    var pattern = new RegExp(/^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/);
 		    return pattern.test(emailAddress);
+		}
+		function isValidPhone(phone) {
+		    var pattern = new RegExp(/^[0][9|3][0-9]{8}$/);
+		    return pattern.test(phone);
 		}
 		function fomatVND(input) {
             return input.toLocaleString('it-IT', {style : 'currency', currency : 'VND'});

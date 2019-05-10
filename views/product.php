@@ -136,7 +136,13 @@ for ($i = 0; $i < 5; $i++) {
                                     <div class="divider divider--md"></div>
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="Tab2">
-                                    <h5><strong class="color">Đánh giá sản phẩm</strong></h5>
+                                    <?php if (!isset($_SESSION['customer'])) {?>
+                                    <h5>
+                                        <strong class="color">
+                                            <a href="#" data-toggle="modal" data-target="#modalLoginForm">Đăng nhập để đánh giá</a>
+                                        </strong>
+                                    </h5>
+                                    <?php }?>
                                     <div class="review-list">
 
                                     </div>
